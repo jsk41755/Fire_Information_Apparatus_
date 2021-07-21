@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643030670987",
+    "project_id": "fire-information-apparatus",
+    "storage_bucket": "fire-information-apparatus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643030670987:android:8ae65641fcbf85505cfe8e",
+        "android_client_info": {
+          "package_name": "com.example.fire_information_apparatus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643030670987-0h44r0040t1i2tfdn1hptr8v809f45p1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQA1vuprkmWhq0hHxQQVF97Gk-fanNDDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643030670987-0h44r0040t1i2tfdn1hptr8v809f45p1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,2 @@
+rootProject.name = "fire_information_apparatus"
+include ':app'
