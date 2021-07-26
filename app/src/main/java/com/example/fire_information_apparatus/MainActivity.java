@@ -116,7 +116,7 @@ public class MainActivity  extends AppCompatActivity {
         if (!str.equals("")){
             ArrayList<Helper> myList = new ArrayList<>();
             for (Helper object : list){
-                if(object.getValue().toLowerCase().contains(str.toLowerCase())){
+                if(object.getObject_Name().toLowerCase().contains(str.toLowerCase())){
                     myList.add(object);
                 }
             }

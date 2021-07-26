@@ -3,6 +3,7 @@ package com.example.fire_information_apparatus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,14 +14,22 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Detail_activity extends AppCompatActivity {
 
     private TextView text;
-    private Button deletebtn;
-    private FirebaseDatabase firebaseDatabase;
+    private Button editbtn;
+
+    DatabaseReference ref, DataRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,35 +37,29 @@ public class Detail_activity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         text = findViewById(R.id.textView1);
-        deletebtn = findViewById(R.id.button23);
+        editbtn = findViewById(R.id.button234);
 
 
         Intent intent = getIntent();
 
-        text.setText(intent.getStringExtra("abcd"));
+        text.setText(intent.getStringExtra("Object_Name"));
 
-        deletebtn.setOnClickListener(new View.OnClickListener() {
+        /*String uKey = getIntent().getStringExtra("uKey");
+
+        DataRef = FirebaseDatabase.getInstance().getReference().child("Data").child(uKey);*/
+
+        editbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDeleteContent();
+                Context context = v.getContext();
+
+                Intent intent_edit = new Intent(v.getContext(), Add_Child_Activity.class);
+                intent_edit.putExtra("Edit_Object_Name", intent.getStringExtra("Object_Name"));
+                context.startActivity(intent_edit);
             }
         });
+
     }
 
-    private void onDeleteContent() {
-        firebaseDatabase.getReference().child("Content").child(uidList.get(position)).removeValue().addOnSuccessListener(
-                new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(context, "삭제 성공", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                System.out.println("error: "+e.getMessage());
-                Toast.makeText(context, "삭제 실패", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }

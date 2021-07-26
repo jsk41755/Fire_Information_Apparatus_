@@ -13,22 +13,51 @@
         android:orientation="vertical"
         >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
         <TextView
-            android:id="@+id/value"
-            android:layout_width="match_parent"
+            android:id="@+id/Object_Name_txt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textStyle="bold"
             android:padding="10dp"
-            android:text="@string/value" />
+            android:text="대상명" />
 
         <TextView
-            android:id="@+id/value2"
+            android:id="@+id/By_Place_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/value2"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:text="장소"
+            android:gravity="end"/>
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/Old_Address_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="구 주소"
+            android:textSize="15dp"
             android:padding="10dp"
             />
+
+        <TextView
+            android:id="@+id/New_Address_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신 주소"
+            android:textSize="15dp"
+            android:padding="10dp"
+            />
+
     </LinearLayout>
     <View
         android:layout_width="match_parent"

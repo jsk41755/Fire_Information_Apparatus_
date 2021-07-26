@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder> {
@@ -29,17 +32,20 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.value.setText(list.get(position).getValue());
-        holder.value2.setText(list.get(position).getValue2());
+        holder.Object_Name_txt.setText(list.get(position).getObject_Name());
+        holder.By_Place_txt.setText(list.get(position).getBy_Place());
+        holder.Old_Address_txt.setText(list.get(position).getOld_Address());
+        holder.New_Address_txt.setText(list.get(position).getNew_Address());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                Log.d("erge","hfhd");
+                //Log.d("erge", FirebaseDatabase.getInstance().getReference().child("Data").getRef(getRef(position).getKey()).getKey());
                 Intent intent = new Intent(v.getContext(), Detail_activity.class);
-                intent.putExtra("abcd",list.get(position).getValue());
+                intent.putExtra("Object_Name",list.get(position).getObject_Name());
+                intent.putExtra("Old_Address",position);
                 context.startActivity(intent);
             }
         });
@@ -51,11 +57,14 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView value, value2;
+        TextView Object_Name_txt, By_Place_txt, Old_Address_txt, New_Address_txt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            value = itemView.findViewById(R.id.value);
-            value2 =  itemView.findViewById(R.id.value2);
+            Object_Name_txt = itemView.findViewById(R.id.Object_Name_txt);
+            By_Place_txt =  itemView.findViewById(R.id.By_Place_txt);
+            Old_Address_txt = itemView.findViewById(R.id.Old_Address_txt);
+            New_Address_txt =  itemView.findViewById(R.id.New_Address_txt);
+
         }
     }
 
