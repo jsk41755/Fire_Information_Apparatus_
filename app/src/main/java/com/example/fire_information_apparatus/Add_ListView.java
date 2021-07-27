@@ -30,7 +30,7 @@ import java.util.Arrays;
 public class Add_ListView extends AppCompatActivity {
 
     private EditText Object_Name, Old_Address, New_Address, Reporting_Time, Object_Manager, Manager_General_Telephone, Manager_Cell_Phone, Reported_Content;
-    private Button button;
+    private Button Edit_btn, Close_btn;
 
     ArrayAdapter<String> arrayAdapter_child;
 
@@ -46,7 +46,7 @@ public class Add_ListView extends AppCompatActivity {
     String By_Place_Select; // 장소 선택
 
     ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택택
-    String by_Case_Cause_cv;    //
+    String By_Case_Cause_cv;    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,9 @@ public class Add_ListView extends AppCompatActivity {
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
         Reported_Content= findViewById(R.id.Reported_Content);
 
-        button = findViewById(R.id.finish_button);
+        Edit_btn = findViewById(R.id.edit_button);
+
+        Close_btn = findViewById(R.id.close_button);
 
 
         Spinner Jurisdiction_Center = findViewById(R.id.Jurisdiction_Center);
@@ -179,7 +181,7 @@ public class Add_ListView extends AppCompatActivity {
         child.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                by_Case_Cause_cv = by_Case_Cause_Select.get(position);
+                By_Case_Cause_cv = by_Case_Cause_Select.get(position);
             }
 
             @Override
@@ -188,7 +190,7 @@ public class Add_ListView extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        Edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sObject_Name = Object_Name.getText().toString().trim();
@@ -201,21 +203,22 @@ public class Add_ListView extends AppCompatActivity {
                 String sReported_Content = Reported_Content.getText().toString().trim();
 
 
-                String sKey = databaseReference.push().getKey();
+                String sKey = sObject_Name;
+                String num = "0";
 
                 if(sKey != null){
                     databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
                     databaseReference.child(sKey).child("Old_Address").setValue(sOld_Address);
                     databaseReference.child(sKey).child("New_Address").setValue(sNew_Address);
-                    databaseReference.child(sKey).child("Reporting_Time").child(sKey).setValue(sReporting_Time); //추가 브랜치
                     databaseReference.child(sKey).child("Object_Manager").setValue(sObject_Manager);
                     databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
                     databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
-                    databaseReference.child(sKey).child("Reported_Content").child(sKey).setValue(sReported_Content); //추가 브랜치
-
-                    databaseReference.child(sKey).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
                     databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
-                    databaseReference.child(sKey).child("by_Case_Cause").child(sKey).setValue(by_Case_Cause_cv); //추가 브랜치
+
+                    databaseReference.child(sKey).child(num).child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
+                    databaseReference.child(sKey).child(num).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
+                    databaseReference.child(sKey).child(num).child("Reported_Content").setValue(sReported_Content); //조치내용
+                    databaseReference.child(sKey).child(num).child("Reporting_Time").setValue(sReporting_Time); //신고시각
 
                     Object_Name.setText("");
                     Old_Address.setText("");
@@ -227,6 +230,13 @@ public class Add_ListView extends AppCompatActivity {
                     Reported_Content.setText("");
                 }
 
+                finish();
+            }
+        });
+
+        Close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

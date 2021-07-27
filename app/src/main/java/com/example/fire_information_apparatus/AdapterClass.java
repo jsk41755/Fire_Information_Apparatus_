@@ -42,10 +42,16 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                //Log.d("erge", FirebaseDatabase.getInstance().getReference().child("Data").getRef(getRef(position).getKey()).getKey());
+                Log.d("Object_Manager", list.get(position).getObject_Manager());
                 Intent intent = new Intent(v.getContext(), Detail_activity.class);
                 intent.putExtra("Object_Name",list.get(position).getObject_Name());
-                intent.putExtra("Old_Address",position);
+                intent.putExtra("By_Place",list.get(position).getBy_Place());
+                intent.putExtra("Old_Address",list.get(position).getOld_Address());
+                intent.putExtra("New_Address",list.get(position).getNew_Address());
+                intent.putExtra("Object_Manager",list.get(position).getObject_Manager());
+                intent.putExtra("Manager_General_Telephone",list.get(position).getManager_General_Telephone());
+                intent.putExtra("Manager_Cell_Phone",list.get(position).getManager_Cell_Phone());
+
                 context.startActivity(intent);
             }
         });

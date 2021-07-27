@@ -320,7 +320,7 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/finish_button"
+            android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:backgroundTint="#e9e9e9"

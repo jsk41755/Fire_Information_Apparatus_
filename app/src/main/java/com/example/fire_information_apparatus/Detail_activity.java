@@ -25,7 +25,8 @@ import java.util.List;
 
 public class Detail_activity extends AppCompatActivity {
 
-    private TextView text;
+    private TextView Object_Name, By_Place, Old_Address, New_Address, Jurisdiction_Center, Reporting_Time, Object_Manager, Manager_General_Telephone,
+            Manager_Cell_Phone, by_Case_Cause;
     private Button editbtn;
 
     DatabaseReference ref, DataRef;
@@ -36,13 +37,27 @@ public class Detail_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        text = findViewById(R.id.textView1);
+        Object_Name = findViewById(R.id.Object_Name);
+        Old_Address = findViewById(R.id.Old_Address);
+        New_Address = findViewById(R.id.New_Address);
+        Object_Manager = findViewById(R.id.Object_Manager);
+        By_Place = findViewById(R.id.By_Place);
+        Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
+        Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
+
         editbtn = findViewById(R.id.button234);
 
 
         Intent intent = getIntent();
 
-        text.setText(intent.getStringExtra("Object_Name"));
+        Object_Name.setText(intent.getStringExtra("Object_Name"));
+        Old_Address.setText(intent.getStringExtra("Old_Address"));
+        New_Address.setText(intent.getStringExtra("New_Address"));
+        Object_Manager.setText(intent.getStringExtra("Object_Manager"));
+        Manager_General_Telephone.setText(intent.getStringExtra("Manager_General_Telephone"));
+        Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
+        By_Place.setText(intent.getStringExtra("By_Place"));
+
 
         /*String uKey = getIntent().getStringExtra("uKey");
 
@@ -55,6 +70,7 @@ public class Detail_activity extends AppCompatActivity {
 
                 Intent intent_edit = new Intent(v.getContext(), Add_Child_Activity.class);
                 intent_edit.putExtra("Edit_Object_Name", intent.getStringExtra("Object_Name"));
+                intent_edit.putExtra("Edit_Old_Address", intent.getStringExtra("Old_Address"));
                 context.startActivity(intent_edit);
             }
         });
