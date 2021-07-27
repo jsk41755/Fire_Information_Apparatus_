@@ -204,7 +204,7 @@ public class Add_ListView extends AppCompatActivity {
 
 
                 String sKey = sObject_Name;
-                String num = "0";
+                String num = "Detail_Card";
 
                 if(sKey != null){
                     databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);

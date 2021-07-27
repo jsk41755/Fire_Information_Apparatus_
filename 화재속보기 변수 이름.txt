@@ -8,7 +8,7 @@
 관리자-일반전화 Manager_General_Telephone
 관리자-휴대전화 Manager_Cell_Phone
 
-사례원인별 by_Case_Cause -SPINER*
+사례원인별 By_Case_Cause -SPINER*
 사례원인별-인위적요인 Artificial_Factors
 사례원인별-관리적요인 Administrative_Factors
 사례원인별-시스템요인 System_Factors

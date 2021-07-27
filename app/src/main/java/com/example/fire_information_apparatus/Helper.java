@@ -10,6 +10,13 @@ public class Helper {
     String Manager_Cell_Phone;
 
 
+
+    String Reporting_Time;
+    String by_Case_Cause;
+    String Jurisdiction_Center;
+    String Reported_Content;
+
+
     public Helper() {
     }
 

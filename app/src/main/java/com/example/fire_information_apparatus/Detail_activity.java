@@ -2,6 +2,8 @@ package com.example.fire_information_apparatus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Detail_activity extends AppCompatActivity {
 
@@ -29,13 +27,24 @@ public class Detail_activity extends AppCompatActivity {
             Manager_Cell_Phone, by_Case_Cause;
     private Button editbtn;
 
-    DatabaseReference ref, DataRef;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Helper> arrayList;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        recyclerView = findViewById(R.id.Detail_RecyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<>();
 
         Object_Name = findViewById(R.id.Object_Name);
         Old_Address = findViewById(R.id.Old_Address);
@@ -47,7 +56,6 @@ public class Detail_activity extends AppCompatActivity {
 
         editbtn = findViewById(R.id.button234);
 
-
         Intent intent = getIntent();
 
         Object_Name.setText(intent.getStringExtra("Object_Name"));
@@ -57,6 +65,30 @@ public class Detail_activity extends AppCompatActivity {
         Manager_General_Telephone.setText(intent.getStringExtra("Manager_General_Telephone"));
         Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
         By_Place.setText(intent.getStringExtra("By_Place"));
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Data").child("Object_Name").child("Detail_Card");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for(DataSnapshot detail_snapshot : snapshot.getChildren()){
+                    Helper helper = snapshot.getValue(Helper.class);
+                    arrayList.add(helper);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Detail_activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter = new Detail_Adapter(arrayList, this);
+        recyclerView.setAdapter(adapter);
+
 
 
         /*String uKey = getIntent().getStringExtra("uKey");
@@ -68,7 +100,7 @@ public class Detail_activity extends AppCompatActivity {
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                Intent intent_edit = new Intent(v.getContext(), Add_Child_Activity.class);
+                Intent intent_edit = new Intent(v.getContext(), Edit_Child_Activity.class);
                 intent_edit.putExtra("Edit_Object_Name", intent.getStringExtra("Object_Name"));
                 intent_edit.putExtra("Edit_Old_Address", intent.getStringExtra("Old_Address"));
                 context.startActivity(intent_edit);

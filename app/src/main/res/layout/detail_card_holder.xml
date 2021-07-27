@@ -27,12 +27,12 @@
                 android:text="신고시각 : " />
 
             <TextView
+                android:id="@+id/Reporting_Time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:padding="10dp"
-                android:text="장소" />
+                android:padding="10dp" />
 
         </LinearLayout>
 
@@ -50,6 +50,7 @@
                 android:text="사례원인별: " />
 
             <TextView
+                android:id="@+id/by_Case_Cause"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
@@ -58,24 +59,53 @@
 
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
-            android:id="@+id/Old_Address_txt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="관할센터 : "
             android:textSize="18dp"
             android:textStyle="bold"
-            android:padding="10dp"
-            />
+            android:padding="10dp"/>
 
         <TextView
+            android:id="@+id/Jurisdiction_Center"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="조치 내용 :"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:padding="10dp"
-            />
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/Reported_Content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:padding="10dp" />
+    </LinearLayout>
+
+
+
 
     </LinearLayout>
     <View
