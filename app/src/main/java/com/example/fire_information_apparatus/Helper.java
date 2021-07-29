@@ -9,18 +9,12 @@ public class Helper {
     String Manager_General_Telephone;
     String Manager_Cell_Phone;
 
-
-
-    String Reporting_Time;
-    String by_Case_Cause;
-    String Jurisdiction_Center;
-    String Reported_Content;
-
+    String Num;
 
     public Helper() {
     }
 
-    public Helper(String Object_Name, String By_Place, String Old_Address, String New_Address, String Manager_General_Telephone, String Manager_Cell_Phone) {
+    public Helper(String Object_Name, String By_Place, String Old_Address, String New_Address, String Object_Manager, String Manager_General_Telephone, String Manager_Cell_Phone,String Num) {
         this.Object_Name = Object_Name;
         this.By_Place = By_Place;
         this.Old_Address = Old_Address;
@@ -28,6 +22,7 @@ public class Helper {
         this.Object_Manager = Object_Manager;
         this.Manager_General_Telephone = Manager_General_Telephone;
         this.Manager_Cell_Phone = Manager_Cell_Phone;
+        this.Num = Num;
     }
 
     public String getObject_Name() {
@@ -85,5 +80,13 @@ public class Helper {
 
     public void setManager_Cell_Phone(String manager_Cell_Phone) {
         Manager_Cell_Phone = manager_Cell_Phone;
+    }
+
+    public String getNum() {
+        return Num;
+    }
+
+    public void setNum(String num) {
+        Num = num;
     }
 }

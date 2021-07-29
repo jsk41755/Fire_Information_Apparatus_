@@ -1,6 +1,7 @@
 package com.example.fire_information_apparatus;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 
 public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailViewHolder> {
 
-    private ArrayList<Helper> arrayList;
+    private ArrayList<Detail_Helper> arrayList;
     private Context context;
 
-    public Detail_Adapter(ArrayList<Helper> arrayList, Context context) {
+    public Detail_Adapter(ArrayList<Detail_Helper> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -31,15 +32,16 @@ public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailVi
 
     @Override
     public void onBindViewHolder(@NonNull Detail_Adapter.DetailViewHolder holder, int position) {
-        /*holder.Reporting_Time.setText(arrayList.get(position).getReporting_Time());
+        holder.Reporting_Time.setText(arrayList.get(position).getReporting_Time());
         holder.by_Case_Cause.setText(arrayList.get(position).getBy_Case_Cause());
         holder.Jurisdiction_Center.setText(arrayList.get(position).getJurisdiction_Center());
-        holder.Reported_Content.setText(arrayList.get(position).getReported_Content());*/
+        holder.Reported_Content.setText(arrayList.get(position).getReported_Content());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        Log.d("ergerrr", String.valueOf(arrayList.size()));
+        return (arrayList != null ? arrayList.size() : 0);
     }
 
     public class DetailViewHolder extends RecyclerView.ViewHolder {

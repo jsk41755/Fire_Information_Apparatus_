@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +28,14 @@ public class Detail_activity extends AppCompatActivity {
 
     private TextView Object_Name, By_Place, Old_Address, New_Address, Jurisdiction_Center, Reporting_Time, Object_Manager, Manager_General_Telephone,
             Manager_Cell_Phone, by_Case_Cause;
-    private Button editbtn;
+    private Button editbtn, addbtn;
+
+    private ImageButton General_Call_btn, Cell_Call_btn;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Helper> arrayList;
+    private ArrayList<Detail_Helper> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -54,7 +59,11 @@ public class Detail_activity extends AppCompatActivity {
         Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
 
-        editbtn = findViewById(R.id.button234);
+        General_Call_btn = findViewById(R.id.Cell_Call_btn);
+        Cell_Call_btn = findViewById(R.id.Cell_Call_btn);
+
+        Object_Name = findViewById(R.id.Object_Name);
+        Old_Address = findViewById(R.id.Old_Address);
 
         Intent intent = getIntent();
 
@@ -66,16 +75,19 @@ public class Detail_activity extends AppCompatActivity {
         Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
         By_Place.setText(intent.getStringExtra("By_Place"));
 
+
+
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Data").child("Object_Name").child("Detail_Card");
+        databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
+        Log.d("error", intent.getStringExtra("Object_Name"));
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for(DataSnapshot detail_snapshot : snapshot.getChildren()){
-                    Helper helper = snapshot.getValue(Helper.class);
-                    arrayList.add(helper);
+                    Detail_Helper detail_helper = detail_snapshot.getValue(Detail_Helper.class);
+                    arrayList.add(detail_helper);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -106,6 +118,50 @@ public class Detail_activity extends AppCompatActivity {
                 context.startActivity(intent_edit);
             }
         });
+
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context add_context = v.getContext();
+
+                Intent intent_add = new Intent(v.getContext(), Add_Object_Activity.class);
+                intent_add.putExtra("Add_Object_Name", intent.getStringExtra("Object_Name"));
+                intent_add.putExtra("Num", intent.getStringExtra("Num"));
+                add_context.startActivity(intent_add);
+            }
+        });
+
+        General_Call_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String General_phone = Manager_General_Telephone.getText().toString();
+                if (General_phone.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"저장된 전화번호가 없습니다!!",Toast.LENGTH_SHORT).show();
+                }else{
+                    String s = "tel:" + General_phone;
+                    Intent General_Call_intent = new Intent(Intent.ACTION_CALL);
+                    General_Call_intent.setData(Uri.parse(s));
+                    startActivity(General_Call_intent);
+                }
+            }
+        });
+
+        Cell_Call_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Cell_phone = Manager_Cell_Phone.getText().toString();
+                if (Cell_phone.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"저장된 전화번호가 없습니다!!",Toast.LENGTH_SHORT).show();
+                }else{
+                    String s = "tel:" + Cell_phone;
+                    Intent Cell_Call_intent = new Intent(Intent.ACTION_CALL);
+                    Cell_Call_intent.setData(Uri.parse(s));
+                    startActivity(Cell_Call_intent);
+                }
+            }
+        });
+
+
 
     }
 

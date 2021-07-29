@@ -51,6 +51,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
                 intent.putExtra("Object_Manager",list.get(position).getObject_Manager());
                 intent.putExtra("Manager_General_Telephone",list.get(position).getManager_General_Telephone());
                 intent.putExtra("Manager_Cell_Phone",list.get(position).getManager_Cell_Phone());
+                intent.putExtra("Num",list.get(position).getNum());
 
                 context.startActivity(intent);
             }

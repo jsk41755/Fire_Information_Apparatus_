@@ -20,9 +20,150 @@
             android:layout_height="50dp"
             android:background="#009444"
             android:gravity="center"
-            android:text="대상 카드"
+            android:text="대상 카드 추가"
             android:textColor="#fff"
-            android:textSize="20dp" />
+            android:textSize="24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대상물 명 : "
+                android:textColor="@color/black"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/Object_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:text="신고시각 : "
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/Add_Reporting_Time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:text="사례원인별: "
+                    android:textColor="@color/black"/>
+
+                <Spinner
+                    android:id="@+id/Add_By_Case_Cause_1"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"/>
+
+                <Spinner
+                    android:id="@+id/Add_By_Case_Cause_2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="관할센터 : "
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textColor="@color/black"/>
+
+                <Spinner
+                    android:id="@+id/Add_Jurisdiction_Center"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="horizontal"
+                android:background="@drawable/edittext_rounded_corner_rectangle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="조치 내용 :"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/Add_Reported_Content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:background="@null"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -31,15 +172,26 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        android:padding="5dp"
+        android:gravity="center">
 
-        <TextView
-            android:id="@+id/Edit_Object"
+        <Button
+            android:id="@+id/Save_btn"
+            android:text="저장"
+            android:textSize="18dp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="건물명" />
+            android:layout_marginRight="100dp"/>
 
-
+        <Button
+            android:id="@+id/Close_btn"
+            android:text="취소"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

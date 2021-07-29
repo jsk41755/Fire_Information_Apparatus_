@@ -45,7 +45,7 @@ public class Add_ListView extends AppCompatActivity {
     String Jurisdiction_Center_Select;    //관할 선택
     String By_Place_Select; // 장소 선택
 
-    ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택택
+    ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택
     String By_Case_Cause_cv;    //
 
     @Override
@@ -204,7 +204,7 @@ public class Add_ListView extends AppCompatActivity {
 
 
                 String sKey = sObject_Name;
-                String num = "Detail_Card";
+                String Detail_Card = "Detail_Card";
 
                 if(sKey != null){
                     databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
@@ -214,11 +214,14 @@ public class Add_ListView extends AppCompatActivity {
                     databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
                     databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
                     databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
+                    databaseReference.child(sKey).child("Num").setValue("1");
 
-                    databaseReference.child(sKey).child(num).child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
-                    databaseReference.child(sKey).child(num).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
-                    databaseReference.child(sKey).child(num).child("Reported_Content").setValue(sReported_Content); //조치내용
-                    databaseReference.child(sKey).child(num).child("Reporting_Time").setValue(sReporting_Time); //신고시각
+                    databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv);
+
+                    databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
+                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
+                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
+                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각
 
                     Object_Name.setText("");
                     Old_Address.setText("");
