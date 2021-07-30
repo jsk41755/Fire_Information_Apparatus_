@@ -6,21 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Edit_Child_Activity extends AppCompatActivity {
 
-    TextInputLayout full_name;
-    TextView fullNameLabel, usernameLabel;
     Button add_button;
 
+    EditText Edit_Old_Address, Edit_New_Address, Edit_Object_Manager, Edit_Manager_General_Telephone, Edit_Manager_Cell_Phone;
+
     DatabaseReference reference;
-    String _USERNAME, _NAME;
+    String _Object_Name, _Old_Address, _New_Address, _Object_Manager, _Manager_General_Telephone, _Manager_Cell_Phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,27 @@ public class Edit_Child_Activity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Data");
 
-        full_name= findViewById(R.id.full_name_profile);// full name
+        Edit_Old_Address = findViewById(R.id.Edit_Old_Address);
+        Edit_New_Address = findViewById(R.id.Edit_New_Address);
+        Edit_Object_Manager = findViewById(R.id.Edit_Object_Manager);
+        Edit_Manager_General_Telephone = findViewById(R.id.Edit_Manager_General_Telephone);
+        Edit_Manager_Cell_Phone = findViewById(R.id.Edit_Manager_Cell_Phone);
+
+        /*Edit_Object_Name = findViewById(R.id.Edit_Object_Name);
+        Edit_Old_Address = findViewById(R.id.Edit_Old_Address);
+        Edit_New_Address = findViewById(R.id.Edit_New_Address);
+        Edit_Object_Manager = findViewById(R.id.Edit_Object_Manager);
+        Edit_Manager_General_Telephone = findViewById(R.id.Edit_Manager_General_Telephone);
+        Edit_Manager_Cell_Phone = findViewById(R.id.Edit_Manager_Cell_Phone);*/
 
 
-        fullNameLabel = findViewById(R.id.fullname_field);
-        usernameLabel = findViewById(R.id.username_field);
+        Intent intent = getIntent();
+
+        Edit_Old_Address.setHint(intent.getStringExtra("Edit_Old_Address"));
+        Edit_New_Address.setHint(intent.getStringExtra("Edit_New_Address"));
+        Edit_Object_Manager.setHint(intent.getStringExtra("Edit_Object_Manager"));
+        Edit_Manager_General_Telephone.setHint(intent.getStringExtra("Edit_Manager_General_Telephone"));
+        Edit_Manager_Cell_Phone.setHint(intent.getStringExtra("Edit_Manager_Cell_Phone"));
 
         add_button = findViewById(R.id.addBtn);
 
@@ -43,24 +61,18 @@ public class Edit_Child_Activity extends AppCompatActivity {
 
         //Log.d("ergerrr",intent2.getStringExtra("Edit_Object_Name"));
 
-
-
-        /*add_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
-
     }
 
     private void showAllUserData() {
         Intent intent2 = getIntent();
-        _USERNAME = intent2.getStringExtra("Edit_Object_Name");
-        _NAME = intent2.getStringExtra("Edit_Old_Address");
-
+        _Old_Address = intent2.getStringExtra("Edit_Old_Address");
+        _New_Address = intent2.getStringExtra("Edit_New_Address");
+        _Object_Manager = intent2.getStringExtra("Edit_Object_Manager");
+        _Manager_General_Telephone = intent2.getStringExtra("Edit_Manager_General_Telephone");
+        _Manager_Cell_Phone = intent2.getStringExtra("Edit_Manager_Cell_Phone");
+/*
         usernameLabel.setText(_USERNAME);
-        fullNameLabel.setText(_NAME);
+        fullNameLabel.setText(_NAME);*/
     }
 
     public void update(View view){
@@ -76,9 +88,17 @@ public class Edit_Child_Activity extends AppCompatActivity {
     }
 
     private boolean isNameChanged() {
-        if (!_NAME.equals(full_name.getEditText().getText().toString())){
-            reference.child(_USERNAME).child("Old_Address").setValue(full_name.getEditText().getText().toString());
-            //reference.child(_USERNAME).child("Object_Name").setValue(full_name.getEditText().getText().toString());
+        //reference.child(_Object_Name).child("_Object_Name").setValue(Edit_Object_Name_TIL.getEditText().getText().toString());
+        if (!_Old_Address.equals(Edit_Old_Address.getText().toString()) ||
+                !_New_Address.equals(Edit_New_Address.getText().toString()) ||
+                !_Object_Manager.equals(Edit_Object_Manager.getText().toString()) ||
+                !_Manager_General_Telephone.equals(Edit_Manager_General_Telephone.getText().toString()) ||
+                !_Manager_Cell_Phone.equals(Edit_Manager_Cell_Phone.getText().toString())){
+            reference.child(_Object_Name).child("Old_Address").setValue(Edit_Old_Address.getText().toString());
+            reference.child(_Object_Name).child("New_Address").setValue(Edit_New_Address.getText().toString());
+            reference.child(_Object_Name).child("Object_Manager").setValue(Edit_Object_Manager.getText().toString());
+            reference.child(_Object_Name).child("Manager_General_Telephone").setValue(Edit_Manager_General_Telephone.getText().toString());
+            reference.child(_Object_Name).child("Manager_Cell_Phone").setValue(Edit_Manager_Cell_Phone.getText().toString());
             return true;
         } else {
             return false;

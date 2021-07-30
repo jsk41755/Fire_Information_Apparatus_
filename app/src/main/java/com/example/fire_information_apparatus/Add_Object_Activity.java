@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Add_Object_Activity extends AppCompatActivity {
 
-    private TextView Object_Name;
+    private TextView Object_Name_txt;
     private EditText Add_Reporting_Time, Add_Reported_Content;
     private Button Save_btn, Close_btn;
 
@@ -70,7 +70,7 @@ public class Add_Object_Activity extends AppCompatActivity {
         Etc_Factors = new ArrayList<>();
         Etc_Factors.add("복구/원인불명");
 
-        Object_Name = findViewById(R.id.Object_Name);
+        Object_Name_txt = findViewById(R.id.Object_Name);
         Add_Reporting_Time = findViewById(R.id.Add_Reporting_Time);
         Add_Reported_Content = findViewById(R.id.Add_Reported_Content);
         Save_btn = findViewById(R.id.Save_btn);
@@ -87,6 +87,8 @@ public class Add_Object_Activity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Data").child(Object_Name).child("Detail_Card");
+
+        Object_Name_txt.setText(Object_Name);
 
         Log.d("add_object",Num);
         key = Integer.parseInt(Num);

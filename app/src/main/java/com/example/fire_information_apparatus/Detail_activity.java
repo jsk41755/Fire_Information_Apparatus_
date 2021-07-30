@@ -65,6 +65,9 @@ public class Detail_activity extends AppCompatActivity {
         Object_Name = findViewById(R.id.Object_Name);
         Old_Address = findViewById(R.id.Old_Address);
 
+        editbtn = findViewById(R.id.button234);
+        addbtn = findViewById(R.id.button23);
+
         Intent intent = getIntent();
 
         Object_Name.setText(intent.getStringExtra("Object_Name"));
@@ -74,6 +77,8 @@ public class Detail_activity extends AppCompatActivity {
         Manager_General_Telephone.setText(intent.getStringExtra("Manager_General_Telephone"));
         Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
         By_Place.setText(intent.getStringExtra("By_Place"));
+
+
 
 
 
@@ -115,6 +120,10 @@ public class Detail_activity extends AppCompatActivity {
                 Intent intent_edit = new Intent(v.getContext(), Edit_Child_Activity.class);
                 intent_edit.putExtra("Edit_Object_Name", intent.getStringExtra("Object_Name"));
                 intent_edit.putExtra("Edit_Old_Address", intent.getStringExtra("Old_Address"));
+                intent_edit.putExtra("Edit_New_Address", intent.getStringExtra("New_Address"));
+                intent_edit.putExtra("Edit_Object_Manager", intent.getStringExtra("Object_Manager"));
+                intent_edit.putExtra("Edit_Manager_General_Telephone", intent.getStringExtra("Manager_General_Telephone"));
+                intent_edit.putExtra("Edit_Manager_Cell_Phone", intent.getStringExtra("Manager_Cell_Phone"));
                 context.startActivity(intent_edit);
             }
         });

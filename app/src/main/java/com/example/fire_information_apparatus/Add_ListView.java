@@ -37,7 +37,7 @@ public class Add_ListView extends AppCompatActivity {
     ArrayList<String> Artificial_Factors,Administrative_Factors,System_Factors,Etc_Factors; //인위적요인, 관리적요인, 시스템적요인, 기타
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, defstat;
 
     String[] items = {"영운119안전센터", "오창안전센터", "내수안전센터","율량안전센터","북문안전센터","문의안전센터"};
     String[] items2 = {"공장", "주거", "노유자","기타"};
@@ -98,6 +98,7 @@ public class Add_ListView extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Data");
+        defstat = firebaseDatabase.getReference().child("Statistics");
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items
@@ -202,9 +203,14 @@ public class Add_ListView extends AppCompatActivity {
                 String sManager_Cell_Phone = Manager_Cell_Phone.getText().toString().trim();
                 String sReported_Content = Reported_Content.getText().toString().trim();
 
-
                 String sKey = sObject_Name;
                 String Detail_Card = "Detail_Card";
+
+                if(sObject_Name == databaseReference.child(sKey).getKey()) {
+                    //Log.d("same", String.valueOf((sObject_Name == databaseReference.child(sKey).getKey() ? 1 : 0)));
+                    Toast.makeText(getApplicationContext(),"이미 존재합니다 종룟합니다",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
                 if(sKey != null){
                     databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
