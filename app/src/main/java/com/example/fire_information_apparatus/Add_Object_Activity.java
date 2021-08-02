@@ -1,5 +1,6 @@
 package com.example.fire_information_apparatus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,8 +14,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -31,7 +35,7 @@ public class Add_Object_Activity extends AppCompatActivity {
     String key_string;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, defstat;
 
     ArrayAdapter<String> arrayAdapter_child;
 
@@ -43,6 +47,8 @@ public class Add_Object_Activity extends AppCompatActivity {
 
     ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택
     String By_Case_Cause_cv;
+
+    String Case_Stack, Con_Case_Stack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +93,7 @@ public class Add_Object_Activity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Data").child(Object_Name).child("Detail_Card");
+        defstat = firebaseDatabase.getReference().child("Statistics");
 
         Object_Name_txt.setText(Object_Name);
 
@@ -122,6 +129,7 @@ public class Add_Object_Activity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Jurisdiction_Center_Select = items[position];
+
             }
 
             @Override
@@ -136,21 +144,25 @@ public class Add_Object_Activity extends AppCompatActivity {
                 if(position == 0){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Artificial_Factors);
                     by_Case_Cause_Select = Artificial_Factors;
+                    Case_Stack = "Artificial_Factors";
                 }
 
                 if(position == 1){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Administrative_Factors);
                     by_Case_Cause_Select = Administrative_Factors;
+                    Case_Stack = "Administrative_Factors";
                 }
 
                 if(position == 2){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, System_Factors);
                     by_Case_Cause_Select = System_Factors;
+                    Case_Stack = "System_Factors";
                 }
 
                 if(position == 3){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Etc_Factors);
                     by_Case_Cause_Select = Etc_Factors;
+                    Case_Stack = "Etc_Factors";
                 }
 
                 child.setAdapter(arrayAdapter_child);
@@ -166,6 +178,7 @@ public class Add_Object_Activity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 By_Case_Cause_cv = by_Case_Cause_Select.get(position);
+                Con_Case_Stack = String.valueOf(position);
             }
 
             @Override
@@ -188,6 +201,21 @@ public class Add_Object_Activity extends AppCompatActivity {
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
                     databaseReference.child(key_string).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
+
+                    defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                            value +=1;//숫자를 1 증가시켜서
+                            // Log.d("same", Jurisdiction_Center_Stack);
+                            defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                        }
+                    });
                 }
                 finish();
             }

@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Add_ListView extends AppCompatActivity {
 
@@ -44,6 +47,9 @@ public class Add_ListView extends AppCompatActivity {
     String[] by_Case_Cause = {"인위적요인", "관리적요인", "시스템요인","기타"};
     String Jurisdiction_Center_Select;    //관할 선택
     String By_Place_Select; // 장소 선택
+
+    String By_Place;
+    String Case_Stack, Con_Case_Stack;
 
     ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택
     String By_Case_Cause_cv;    //
@@ -127,6 +133,7 @@ public class Add_ListView extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Jurisdiction_Center_Select = items[position];
+
             }
 
             @Override
@@ -139,6 +146,15 @@ public class Add_ListView extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 By_Place_Select = items2[position];
+
+                if(position == 0)
+                    By_Place = "Factory_Place";
+                else if(position == 1)
+                    By_Place = "Dwelling_Place";
+                else if(position == 2)
+                    By_Place = "Senior_Place";
+                else if(position == 3)
+                    By_Place = "Etc_Place";
             }
 
             @Override
@@ -153,21 +169,25 @@ public class Add_ListView extends AppCompatActivity {
                 if(position == 0){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Artificial_Factors);
                     by_Case_Cause_Select = Artificial_Factors;
+                    Case_Stack = "Artificial_Factors";
                 }
 
                 if(position == 1){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Administrative_Factors);
                     by_Case_Cause_Select = Administrative_Factors;
+                    Case_Stack = "Administrative_Factors";
                 }
 
                 if(position == 2){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, System_Factors);
                     by_Case_Cause_Select = System_Factors;
+                    Case_Stack = "System_Factors";
                 }
 
                 if(position == 3){
                     arrayAdapter_child = new ArrayAdapter<>( getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Etc_Factors);
                     by_Case_Cause_Select = Etc_Factors;
+                    Case_Stack = "Etc_Factors";
                 }
 
                 child.setAdapter(arrayAdapter_child);
@@ -183,6 +203,7 @@ public class Add_ListView extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 By_Case_Cause_cv = by_Case_Cause_Select.get(position);
+                Con_Case_Stack = String.valueOf(position);
             }
 
             @Override
@@ -206,40 +227,83 @@ public class Add_ListView extends AppCompatActivity {
                 String sKey = sObject_Name;
                 String Detail_Card = "Detail_Card";
 
-                if(sObject_Name == databaseReference.child(sKey).getKey()) {
-                    //Log.d("same", String.valueOf((sObject_Name == databaseReference.child(sKey).getKey() ? 1 : 0)));
-                    Toast.makeText(getApplicationContext(),"이미 존재합니다 종룟합니다",Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                String abc = "abcdedf";
 
-                if(sKey != null){
-                    databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
-                    databaseReference.child(sKey).child("Old_Address").setValue(sOld_Address);
-                    databaseReference.child(sKey).child("New_Address").setValue(sNew_Address);
-                    databaseReference.child(sKey).child("Object_Manager").setValue(sObject_Manager);
-                    databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
-                    databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
-                    databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
-                    databaseReference.child(sKey).child("Num").setValue("1");
+                databaseReference.child(sKey).child("Object_Name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getValue(String.class) != null){
+                            Toast.makeText(getApplicationContext(),"중복된 이름이 존재합니다!!",Toast.LENGTH_SHORT).show();
+                            Log.d("same", "중복중복");
+                        } else {
+                            Log.d("same", "중복이 아냐?");
+                            if(sKey != null){
+                                databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
+                                databaseReference.child(sKey).child("Old_Address").setValue(sOld_Address);
+                                databaseReference.child(sKey).child("New_Address").setValue(sNew_Address);
+                                databaseReference.child(sKey).child("Object_Manager").setValue(sObject_Manager);
+                                databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
+                                databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
+                                databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
+                                databaseReference.child(sKey).child("Num").setValue("1");
 
-                    databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv);
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv);
 
-                    databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
-                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
-                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
-                    databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각
 
-                    Object_Name.setText("");
-                    Old_Address.setText("");
-                    New_Address.setText("");
-                    Reporting_Time.setText("");
-                    Object_Manager.setText("");
-                    Manager_General_Telephone.setText("");
-                    Manager_Cell_Phone.setText("");
-                    Reported_Content.setText("");
-                }
 
-                finish();
+                                Object_Name.setText("");
+                                Old_Address.setText("");
+                                New_Address.setText("");
+                                Reporting_Time.setText("");
+                                Object_Manager.setText("");
+                                Manager_General_Telephone.setText("");
+                                Manager_Cell_Phone.setText("");
+                                Reported_Content.setText("");
+
+                                Toast.makeText(getApplicationContext(),"저장되었습니다.",Toast.LENGTH_SHORT).show();
+                                defstat.child("By_Place").child(By_Place).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                        value +=1;//숫자를 1 증가시켜서
+                                        defstat.child("By_Place").child(By_Place).setValue(value);//저장
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                                    }
+                                });
+
+                                defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                        value +=1;//숫자를 1 증가시켜서
+                                        // Log.d("same", Jurisdiction_Center_Stack);
+                                        defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                                    }
+                                });
+                                finish();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"상호명을 입력하지 않으셨습니다.",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
         });
 

@@ -2,11 +2,16 @@ package com.example.fire_information_apparatus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.Manifest.permission.CALL_PHONE;
+import static android.content.ContentValues.TAG;
+
 public class Detail_activity extends AppCompatActivity {
 
     private TextView Object_Name, By_Place, Old_Address, New_Address, Jurisdiction_Center, Reporting_Time, Object_Manager, Manager_General_Telephone,
@@ -39,7 +47,8 @@ public class Detail_activity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
-
+    private int MY_PERMISSIONS_REQUEST_CALL_PHONE;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,7 @@ public class Detail_activity extends AppCompatActivity {
         Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
 
-        General_Call_btn = findViewById(R.id.Cell_Call_btn);
+        General_Call_btn = findViewById(R.id.General_Call_btn);
         Cell_Call_btn = findViewById(R.id.Cell_Call_btn);
 
         Object_Name = findViewById(R.id.Object_Name);
@@ -144,14 +153,21 @@ public class Detail_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String General_phone = Manager_General_Telephone.getText().toString();
-                if (General_phone.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"저장된 전화번호가 없습니다!!",Toast.LENGTH_SHORT).show();
-                }else{
-                    String s = "tel:" + General_phone;
-                    Intent General_Call_intent = new Intent(Intent.ACTION_CALL);
-                    General_Call_intent.setData(Uri.parse(s));
-                    startActivity(General_Call_intent);
+
+                Intent i = new Intent(Intent.ACTION_CALL);
+                i.setData(Uri.parse("tel:" + General_phone));
+/*
+Intent i = new Intent(Intent.ACTION_DIAL);
+i.setData(Uri.parse("tel:0612312312"));
+if (i.resolveActivity(getPackageManager()) != null) {
+      startActivity(i);
+}*/
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(i);
+                } else {
+                    requestPermissions(new String[]{CALL_PHONE}, 1);
                 }
+
             }
         });
 
@@ -162,7 +178,7 @@ public class Detail_activity extends AppCompatActivity {
                 if (Cell_phone.isEmpty()){
                     Toast.makeText(getApplicationContext(),"저장된 전화번호가 없습니다!!",Toast.LENGTH_SHORT).show();
                 }else{
-                    String s = "tel:" + Cell_phone;
+                    String s = Cell_phone;
                     Intent Cell_Call_intent = new Intent(Intent.ACTION_CALL);
                     Cell_Call_intent.setData(Uri.parse(s));
                     startActivity(Cell_Call_intent);
@@ -170,9 +186,14 @@ public class Detail_activity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+
+        adapter.notifyDataSetChanged();
+        Log.d(TAG,"onRestart");
+    }
 
 }
