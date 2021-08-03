@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fire_information_apparatus">
 
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fire_information_apparatus">
-        <activity android:name=".Add_Object_Activity"></activity>
+        <activity android:name=".Detail_Edit_Activity"></activity>
+        <activity android:name=".Add_Object_Activity" />
         <activity android:name=".Edit_Child_Activity" />
         <activity android:name=".Detail_activity" />
         <activity android:name=".Add_ListView" />

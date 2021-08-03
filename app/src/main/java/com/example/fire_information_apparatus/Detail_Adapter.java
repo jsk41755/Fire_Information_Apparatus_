@@ -1,6 +1,7 @@
 package com.example.fire_information_apparatus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,22 @@ public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailVi
         holder.by_Case_Cause.setText(arrayList.get(position).getBy_Case_Cause());
         holder.Jurisdiction_Center.setText(arrayList.get(position).getJurisdiction_Center());
         holder.Reported_Content.setText(arrayList.get(position).getReported_Content());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+
+                //Log.d("position", String.valueOf(position));
+
+                /*Intent intent = new Intent(v.getContext(), Detail_Edit_Activity.class);
+                intent.putExtra("Position",String.valueOf(position+1));
+                intent.putExtra("Reporting_Time",arrayList.get(position).getReporting_Time());
+                intent.putExtra("Reported_Content",arrayList.get(position).getReported_Content());
+
+                context.startActivity(intent);*/
+            }
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.app.Activity;
@@ -37,6 +38,8 @@ public class Detail_activity extends AppCompatActivity {
     private TextView Object_Name, By_Place, Old_Address, New_Address, Jurisdiction_Center, Reporting_Time, Object_Manager, Manager_General_Telephone,
             Manager_Cell_Phone, by_Case_Cause;
     private Button editbtn, addbtn;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private ImageButton General_Call_btn, Cell_Call_btn;
 
@@ -77,6 +80,8 @@ public class Detail_activity extends AppCompatActivity {
         editbtn = findViewById(R.id.button234);
         addbtn = findViewById(R.id.button23);
 
+        swipeRefreshLayout = findViewById(R.id.SwipeRefresh);
+
         Intent intent = getIntent();
 
         Object_Name.setText(intent.getStringExtra("Object_Name"));
@@ -94,6 +99,15 @@ public class Detail_activity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
         Log.d("error", intent.getStringExtra("Object_Name"));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Old_Address.setText(intent.getStringExtra("Old_Address"));
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -189,11 +203,36 @@ if (i.resolveActivity(getPackageManager()) != null) {
     }
 
     @Override
-    public void onRestart(){
-        super.onRestart();
+    public void onResume(){
+        super.onResume();
 
-        adapter.notifyDataSetChanged();
-        Log.d(TAG,"onRestart");
+        Intent intent = getIntent();
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
+        Log.d("error", intent.getStringExtra("Object_Name"));
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for(DataSnapshot detail_snapshot : snapshot.getChildren()){
+                    Detail_Helper detail_helper = detail_snapshot.getValue(Detail_Helper.class);
+                    arrayList.add(detail_helper);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Detail_activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter = new Detail_Adapter(arrayList, this);
+        recyclerView.setAdapter(adapter);
+
+        Log.d(TAG,"onRestart" + intent.getStringExtra("Old_Address"));
     }
 
 }
