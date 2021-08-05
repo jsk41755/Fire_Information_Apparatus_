@@ -2,14 +2,11 @@ package com.example.fire_information_apparatus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,8 +36,6 @@ public class Detail_activity extends AppCompatActivity {
             Manager_Cell_Phone, by_Case_Cause;
     private Button editbtn, addbtn;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-
     private ImageButton General_Call_btn, Cell_Call_btn;
 
     private RecyclerView recyclerView;
@@ -48,10 +43,7 @@ public class Detail_activity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Detail_Helper> arrayList;
     private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-
-    private int MY_PERMISSIONS_REQUEST_CALL_PHONE;
-    private Context context;
+    private DatabaseReference databaseReference, refdetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +72,6 @@ public class Detail_activity extends AppCompatActivity {
         editbtn = findViewById(R.id.button234);
         addbtn = findViewById(R.id.button23);
 
-        swipeRefreshLayout = findViewById(R.id.SwipeRefresh);
 
         Intent intent = getIntent();
 
@@ -94,20 +85,11 @@ public class Detail_activity extends AppCompatActivity {
 
 
 
-
-
         database = FirebaseDatabase.getInstance();
+        refdetail = database.getReference("Data").child(intent.getStringExtra("Object_Name"));
         databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
         Log.d("error", intent.getStringExtra("Object_Name"));
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Old_Address.setText(intent.getStringExtra("Old_Address"));
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -211,6 +193,23 @@ if (i.resolveActivity(getPackageManager()) != null) {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
         Log.d("error", intent.getStringExtra("Object_Name"));
+
+        refdetail.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Old_Address.setText(String.valueOf(snapshot.child("Old_Address").getValue()));
+                New_Address.setText(String.valueOf(snapshot.child("New_Address").getValue()));
+                Object_Manager.setText(String.valueOf(snapshot.child("Object_Manager").getValue()));
+                Manager_General_Telephone.setText(String.valueOf(snapshot.child("Manager_General_Telephone").getValue()));
+                Manager_Cell_Phone.setText(String.valueOf(snapshot.child("Manager_Cell_Phone").getValue()));
+                By_Place.setText(String.valueOf(snapshot.child("By_Place").getValue()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

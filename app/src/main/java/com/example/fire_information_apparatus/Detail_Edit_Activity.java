@@ -74,7 +74,7 @@ public class Detail_Edit_Activity extends AppCompatActivity {
         Etc_Factors.add("복구/원인불명");
 
         Add_Reporting_Time = findViewById(R.id.Edit_Reporting_Time);
-        Add_Reported_Content = findViewById(R.id.Add_Reported_Content);
+        Add_Reported_Content = findViewById(R.id.Edit_Reported_Content);
         Edit_btn = findViewById(R.id.edit_button);
         Close_btn = findViewById(R.id.exit_button);
 
@@ -83,19 +83,15 @@ public class Detail_Edit_Activity extends AppCompatActivity {
         Spinner parent = findViewById(R.id.Edit_By_Case_Cause_1);
         Spinner child = findViewById(R.id.Edit_By_Case_Cause_2);
 
-        Intent intent = getIntent();
-        String Object_Name = intent.getStringExtra("Add_Object_Name");
-        String Position = intent.getStringExtra("Position");
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Data").child(Object_Name).child("Detail_Card");
-        defstat = firebaseDatabase.getReference().child("Statistics");
-
         Intent intent2 = getIntent();
         Add_Reporting_Time_TXT = intent2.getStringExtra("Reporting_Time");
         Add_Reported_Content_TXT = intent2.getStringExtra("Reported_Content");
+        key_string = intent2.getStringExtra("Position");
 
-        Log.d("Position",Position);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("Data").child(intent2.getStringExtra("Object_Name")).child("Detail_Card");
+        defstat = firebaseDatabase.getReference().child("Statistics");
+
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items
@@ -179,14 +175,49 @@ public class Detail_Edit_Activity extends AppCompatActivity {
                 String sAdd_Reporting_Time = Add_Reporting_Time.getText().toString().trim();
                 String sAdd_Reported_Content = Add_Reported_Content.getText().toString().trim();
 
-                firebaseDatabase.getReference().child("Data").child(Object_Name).child("Num").setValue(key_string);
+                //firebaseDatabase.getReference().child("Data").child(intent2.getStringExtra("Position")).child("Num").setValue(key_string);
 
 
-                if(Object_Name != null) {
+                if(intent2.getStringExtra("Object_Name") != null) {
+
+                    defstat.child("Case_Stack").child(intent2.getStringExtra("Factors_Stack")).child(intent2.getStringExtra("Factors_Position")).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                            value -=1;//숫자를 1 증가시켜서
+                            // Log.d("same", Jurisdiction_Center_Stack);
+                            defstat.child("Case_Stack").child(intent2.getStringExtra("Factors_Stack")).child(intent2.getStringExtra("Factors_Position")).setValue(value);//저장
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                        }
+                    });
+
                     databaseReference.child(key_string).child("Reporting_Time").setValue(sAdd_Reporting_Time);
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
                     databaseReference.child(key_string).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
+
+                    databaseReference.child(key_string).child("Factors_Stack").setValue(Case_Stack);
+                    databaseReference.child(key_string).child("Factors_Position").setValue(Con_Case_Stack);
+
+                    defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                            value +=1;//숫자를 1 증가시켜서
+                            // Log.d("same", Jurisdiction_Center_Stack);
+                            defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                        }
+                    });
+
                 }
                 finish();
             }

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009444"
+        android:gravity="center"
+        android:text="인위적 요인"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0, 1, 2, 3, 4"
+        android:padding="1dp">
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="먼지/연기/\n수증기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="조리/화기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="점검/공사중"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="냉/난방기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="13dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Artificial_Factors_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="먼지/연기/수증기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Artificial_Factors_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="조리/화기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Artificial_Factors_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="점검/공사중"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Artificial_Factors_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="냉/난방기"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Artificial_Factors_5"
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="냉/난방기"
+                android:textColor="#000"
+                android:textSize="13dp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009444"
+        android:gravity="center"
+        android:text="관리적 요인"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0, 1, 2, 3"
+        android:padding="5dp">
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="습기"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="관리불량"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Administrative_Factors_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="습기"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Administrative_Factors_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="관리불량"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Administrative_Factors_3"
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009444"
+        android:gravity="center"
+        android:text="시스템 요인"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0, 1, 2, 3"
+        android:padding="5dp">
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="노후"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="시공"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기기오류"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/System_Factors_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="노후"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/System_Factors_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="시공"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/System_Factors_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기기오류"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/System_Factors_4"
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009444"
+        android:gravity="center"
+        android:text="기타"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0"
+        android:padding="5dp">
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="복구/원인불명"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Etc_Factors_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="복구/원인불명"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009444"
+        android:gravity="center"
+        android:text="장소별"
+        android:layout_marginTop="10dp"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0, 1, 2, 3"
+        android:padding="5dp">
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="공장/창고"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주거"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="노유자"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Factory_Place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="공장/창고"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Dwelling_Place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="주거"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Senior_Place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="노유자"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:layout_marginEnd="15dp"/>
+
+            <TextView
+                android:id="@+id/Etc_Place"
+                android:layout_marginEnd="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="기타"
+                android:textColor="#000"
+                android:textSize="15dp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00000000"
+            android:gravity="center"
+            android:onClick="mOnClose"
+            android:text="확인"
+            android:textColor="#FF642F"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

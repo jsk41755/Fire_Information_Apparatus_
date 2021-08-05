@@ -38,7 +38,7 @@ public class MainActivity  extends AppCompatActivity {
     ArrayList<Helper> list;
     RecyclerView recyclerView;
     SearchView searchView;
-    Button addBtn;
+    Button addBtn, staticBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,7 @@ public class MainActivity  extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv);
         searchView = findViewById(R.id.searchview);
         addBtn = findViewById(R.id.addBtn);
-
-
+        staticBtn = findViewById(R.id.StaticBtn);
 
     }
 
@@ -108,7 +107,13 @@ public class MainActivity  extends AppCompatActivity {
             }
         });
 
-
+        staticBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent staticIntent = new Intent(MainActivity.this, Statics.class);
+                startActivity(staticIntent);
+            }
+        });
 
     }
 

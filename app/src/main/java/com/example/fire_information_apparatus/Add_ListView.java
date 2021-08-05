@@ -1,6 +1,5 @@
 package com.example.fire_information_apparatus;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,26 +8,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 public class Add_ListView extends AppCompatActivity {
 
@@ -247,9 +239,11 @@ public class Add_ListView extends AppCompatActivity {
                                 databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
                                 databaseReference.child(sKey).child("Num").setValue("1");
 
-                                databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv);
-
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Factors_Stack").setValue(Case_Stack);
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Factors_Position").setValue(Con_Case_Stack);
+
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Object_Name").setValue(sObject_Name);
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각

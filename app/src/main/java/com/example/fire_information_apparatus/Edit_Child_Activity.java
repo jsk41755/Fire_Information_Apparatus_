@@ -77,18 +77,60 @@ public class Edit_Child_Activity extends AppCompatActivity {
     }
 
     public void update(View view){
-        if(isNameChanged()){
+        isManagerCellPhoneChanged();
+        isManagerGeneralTelephoneChanged();
+        isObjectManagerChanged();
+        isNewAddressChanged();
+        isOldAddressChanged();
+
+        /*if(isOldAddressChanged() || isNewAddressChanged() || isObjectManagerChanged() || isManagerGeneralTelephoneChanged() || isManagerCellPhoneChanged()){
             Toast.makeText(this, "Data has been updated", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(this, "Data is same and can not be updated", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         finish();
 
 
     }
 
-    private boolean isNameChanged() {
+    private boolean isManagerCellPhoneChanged() {
+        if (!_Manager_Cell_Phone.equals(Edit_Old_Address.getText().toString())){
+            reference.child(_Object_Name).child("Manager_Cell_Phone").setValue(Edit_Old_Address.getText().toString());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isManagerGeneralTelephoneChanged() {
+        if (!_Manager_General_Telephone.equals(Edit_Manager_General_Telephone.getText().toString())){
+            reference.child(_Object_Name).child("Manager_General_Telephone").setValue(Edit_Manager_General_Telephone.getText().toString());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isObjectManagerChanged() {
+        if (!_Object_Manager.equals(Edit_Object_Manager.getText().toString())){
+            reference.child(_Object_Name).child("Object_Manager").setValue(Edit_Object_Manager.getText().toString());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isNewAddressChanged() {
+        if (!_New_Address.equals(Edit_New_Address.getText().toString())){
+            reference.child(_Object_Name).child("New_Address").setValue(Edit_New_Address.getText().toString());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isOldAddressChanged() {
         //reference.child(_Object_Name).child("_Object_Name").setValue(Edit_Object_Name_TIL.getEditText().getText().toString());
         if (!_Old_Address.equals(Edit_Old_Address.getText().toString())){
             reference.child(_Object_Name).child("Old_Address").setValue(Edit_Old_Address.getText().toString());

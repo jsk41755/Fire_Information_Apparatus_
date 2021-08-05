@@ -4,7 +4,7 @@
 대상물명 Object_Name
 신고내용 Reported_Content
 
-관리자 Oobject_Manager
+관리자 Object_Manager
 관리자-일반전화 Manager_General_Telephone
 관리자-휴대전화 Manager_Cell_Phone
 

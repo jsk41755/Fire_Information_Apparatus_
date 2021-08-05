@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -201,6 +200,11 @@ public class Add_Object_Activity extends AppCompatActivity {
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
                     databaseReference.child(key_string).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
+
+                    databaseReference.child(key_string).child("Factors_Stack").setValue(Case_Stack);
+                    databaseReference.child(key_string).child("Factors_Position").setValue(Con_Case_Stack);
+                    databaseReference.child(key_string).child("Object_Name").setValue(Object_Name);//관할센터
+
 
                     defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

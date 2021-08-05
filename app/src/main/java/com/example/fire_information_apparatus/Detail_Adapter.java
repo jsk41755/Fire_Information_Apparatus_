@@ -45,12 +45,18 @@ public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailVi
 
                 //Log.d("position", String.valueOf(position));
 
-                /*Intent intent = new Intent(v.getContext(), Detail_Edit_Activity.class);
+                Intent intent = new Intent(v.getContext(), Detail_Edit_Activity.class);
+
                 intent.putExtra("Position",String.valueOf(position+1));
                 intent.putExtra("Reporting_Time",arrayList.get(position).getReporting_Time());
                 intent.putExtra("Reported_Content",arrayList.get(position).getReported_Content());
+                //intent.putExtra("Position",String.valueOf(position+1));
 
-                context.startActivity(intent);*/
+                intent.putExtra("Factors_Stack",arrayList.get(position).getFactors_Stack());
+                intent.putExtra("Factors_Position",arrayList.get(position).getFactors_Position());
+                intent.putExtra("Object_Name",arrayList.get(position).getObject_Name());
+
+                context.startActivity(intent);
             }
         });
     }
