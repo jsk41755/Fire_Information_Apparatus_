@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="신규 추가"
-            android:backgroundTint="#daa520"
+            android:backgroundTint="#6666FF"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"/>
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="통계"
-            android:backgroundTint="#daa520"
+            android:backgroundTint="#6666FF"
             android:layout_gravity="center"/>
 
     </LinearLayout>
