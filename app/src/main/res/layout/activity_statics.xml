@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009444"
+        android:background="#66CCFF"
         android:gravity="center"
         android:text="인위적 요인"
         android:textColor="#fff"
@@ -132,7 +132,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009444"
+        android:background="#6666FF"
         android:gravity="center"
         android:text="관리적 요인"
         android:layout_marginTop="10dp"
@@ -219,7 +219,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009444"
+        android:background="#FF9966"
         android:gravity="center"
         android:text="시스템 요인"
         android:layout_marginTop="10dp"
@@ -325,7 +325,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009444"
+        android:background="#CC9966"
         android:gravity="center"
         android:text="기타"
         android:layout_marginTop="10dp"
@@ -376,7 +376,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#009444"
+        android:background="#99CC66"
         android:gravity="center"
         android:text="장소별"
         android:layout_marginTop="10dp"

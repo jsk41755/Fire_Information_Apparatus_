@@ -171,13 +171,14 @@ if (i.resolveActivity(getPackageManager()) != null) {
             @Override
             public void onClick(View v) {
                 String Cell_phone = Manager_Cell_Phone.getText().toString();
-                if (Cell_phone.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"저장된 전화번호가 없습니다!!",Toast.LENGTH_SHORT).show();
-                }else{
-                    String s = Cell_phone;
-                    Intent Cell_Call_intent = new Intent(Intent.ACTION_CALL);
-                    Cell_Call_intent.setData(Uri.parse(s));
-                    startActivity(Cell_Call_intent);
+
+                Intent i = new Intent(Intent.ACTION_CALL);
+                i.setData(Uri.parse("tel:" + Cell_phone));
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(i);
+                } else {
+                    requestPermissions(new String[]{CALL_PHONE}, 1);
                 }
             }
         });

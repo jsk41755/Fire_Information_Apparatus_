@@ -2,10 +2,12 @@ package com.example.fire_information_apparatus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,9 +18,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Edit_Child_Activity extends AppCompatActivity {
+public class Edit_Child_Activity extends Activity {
 
-    Button add_button;
+    Button add_button, exit_button;
 
     EditText Edit_Object_Name, Edit_Old_Address, Edit_New_Address, Edit_Object_Manager, Edit_Manager_General_Telephone, Edit_Manager_Cell_Phone;
 
@@ -28,6 +30,7 @@ public class Edit_Child_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_child);
 
         reference = FirebaseDatabase.getInstance().getReference("Data");
@@ -55,11 +58,18 @@ public class Edit_Child_Activity extends AppCompatActivity {
 
         add_button = findViewById(R.id.addBtn);
 
-
+        exit_button = findViewById(R.id.exit_button);
         
         showAllUserData();
 
         //Log.d("edit",intent.getStringExtra("Edit_Object_Name"));
+
+        exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -95,8 +105,8 @@ public class Edit_Child_Activity extends AppCompatActivity {
     }
 
     private boolean isManagerCellPhoneChanged() {
-        if (!_Manager_Cell_Phone.equals(Edit_Old_Address.getText().toString())){
-            reference.child(_Object_Name).child("Manager_Cell_Phone").setValue(Edit_Old_Address.getText().toString());
+        if (!_Manager_Cell_Phone.equals(Edit_Manager_Cell_Phone.getText().toString())){
+            reference.child(_Object_Name).child("Manager_Cell_Phone").setValue(Edit_Manager_Cell_Phone.getText().toString());
             return true;
         } else {
             return false;

@@ -14,7 +14,7 @@
         <activity android:name=".Statics" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".Detail_Edit_Activity" />
         <activity android:name=".Add_Object_Activity" />
-        <activity android:name=".Edit_Child_Activity" />
+        <activity android:name=".Edit_Child_Activity" android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".Detail_activity" />
         <activity android:name=".Add_ListView" />
         <activity android:name=".MainActivity">

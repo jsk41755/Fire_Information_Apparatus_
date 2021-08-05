@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Edit_Child_Activity">
+    tools:context=".Edit_Child_Activity"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#009444"
+            android:background="#003399"
             android:gravity="center"
             android:text="출동 내역 수정"
             android:textColor="#fff"
@@ -132,6 +133,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="5dp"
         android:gravity="center">
 
         <Button
@@ -140,12 +144,16 @@
             android:layout_height="wrap_content"
             android:onClick="update"
             android:text="수정"
+            android:textColor="@color/white"
+            android:backgroundTint="#003399"
             android:layout_marginEnd="150dp"/>
 
         <Button
             android:id="@+id/exit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#003399"
+            android:textColor="@color/white"
             android:text="취소" />
 
 
