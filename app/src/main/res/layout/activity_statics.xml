@@ -5,10 +5,11 @@
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <TextView
+    <Button
+        android:id="@+id/Artificial_Factors"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#66CCFF"
+        android:backgroundTint="#808080"
         android:gravity="center"
         android:text="인위적 요인"
         android:textColor="#fff"
@@ -129,10 +130,10 @@
 
     </TableLayout>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#6666FF"
+        android:background="#808080"
         android:gravity="center"
         android:text="관리적 요인"
         android:layout_marginTop="10dp"
@@ -216,10 +217,10 @@
 
     </TableLayout>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#FF9966"
+        android:background="#808080"
         android:gravity="center"
         android:text="시스템 요인"
         android:layout_marginTop="10dp"
@@ -322,10 +323,10 @@
 
     </TableLayout>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#CC9966"
+        android:layout_height="match_parent"
+        android:backgroundTint="#808080"
         android:gravity="center"
         android:text="기타"
         android:layout_marginTop="10dp"
@@ -373,10 +374,10 @@
 
     </TableLayout>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#99CC66"
+        android:background="#808080"
         android:gravity="center"
         android:text="장소별"
         android:layout_marginTop="10dp"
@@ -492,7 +493,7 @@
             android:gravity="center"
             android:onClick="mOnClose"
             android:text="확인"
-            android:textColor="#FF642F"
+            android:textColor="#000000"
             android:textSize="20dp" />
 
     </LinearLayout>

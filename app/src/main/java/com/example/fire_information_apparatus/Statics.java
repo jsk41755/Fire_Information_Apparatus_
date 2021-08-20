@@ -3,6 +3,7 @@ package com.example.fire_information_apparatus;
 import androidx.annotation.NonNull;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +25,7 @@ public class Statics extends Activity {
     private TextView Etc_Factors_1;
 
     private TextView Factory_Place, Dwelling_Place, Senior_Place, Etc_Place;
-    private Button finish_button;
+    private Button finish_button, Artificial_Factors;
 
 
     private FirebaseDatabase database;
@@ -35,6 +36,7 @@ public class Statics extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_statics);
+
 
         Artificial_Factors_1 = findViewById(R.id.Artificial_Factors_1);
         Artificial_Factors_2 = findViewById(R.id.Artificial_Factors_2);
@@ -59,10 +61,18 @@ public class Statics extends Activity {
         Etc_Place = findViewById(R.id.Etc_Place);
 
         finish_button = findViewById(R.id.finish_button);
+        Artificial_Factors = findViewById(R.id.Artificial_Factors);
 
         database = FirebaseDatabase.getInstance();
         databaseReference_Place = database.getReference("Statistics").child("By_Place");
         databaseReference_Case = database.getReference("Statistics").child("Case_Stack");
+
+        Artificial_Factors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), StaticsGraph_Activity.class));
+            }
+        });
 
         databaseReference_Place.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

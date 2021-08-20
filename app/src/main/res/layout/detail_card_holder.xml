@@ -24,7 +24,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:padding="10dp"
-                android:text="신고시각 : " />
+                android:text="신고시각 :" />
 
             <TextView
                 android:id="@+id/Reporting_Time"
@@ -47,7 +47,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:padding="10dp"
-                android:text="사례원인별: " />
+                android:text="사례원인별 :" />
 
             <TextView
                 android:id="@+id/by_Case_Cause"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="관할센터 : "
+            android:text="관할센터 :"
             android:textSize="18dp"
             android:textStyle="bold"
             android:padding="10dp"/>

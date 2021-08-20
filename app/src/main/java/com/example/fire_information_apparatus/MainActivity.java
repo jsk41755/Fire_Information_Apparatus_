@@ -44,6 +44,8 @@ public class MainActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, LoadingActivity.class);
+        startActivity(intent);
 
         ref = FirebaseDatabase.getInstance().getReference().child("Data");
         recyclerView = findViewById(R.id.rv);
@@ -74,7 +76,6 @@ public class MainActivity  extends AppCompatActivity {
                         }
                         AdapterClass adapterClass = new AdapterClass(list);
                         recyclerView.setAdapter(adapterClass);
-
                     }
                 }
 
