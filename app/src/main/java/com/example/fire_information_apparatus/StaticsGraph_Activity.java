@@ -3,11 +3,13 @@ package com.example.fire_information_apparatus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -37,51 +39,168 @@ public class StaticsGraph_Activity extends AppCompatActivity {
         databaseReference_Case = database.getReference("Statistics").child("Case_Stack");
         BarChart barChart = findViewById(R.id.barChart);
 
-        databaseReference_Case.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<BarEntry> visitors = new ArrayList<>();
+        Intent intent = getIntent();
 
-                XAxis xAxis = lineChart.getXAxis();
-                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setDrawGridLines(false);
-                xAxis.setValueFormatter(new IndexAxisValueFormatter(getAreaCount));
+        if(Integer.parseInt(intent.getStringExtra("Statics")) == 0) {
+            databaseReference_Case.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList Factors_name = new ArrayList();
+                    ArrayList<BarEntry> visitors = new ArrayList<>();
 
-                public ArrayList<String> getAreaCount() {
+                    String Factors = intent.getStringExtra("Factors");
+                    //Log.d("b", String.valueOf(Factors.equals(Factors2)));
 
-                    ArrayList<String> label = new ArrayList<>();
-                    for (int i = 0; i < areaList.size(); i++)
-                        label.add(areaList.get(i).getTopicName());
-                    return label;
+                    Description description = new Description();
+
+                    if (Factors.equals("Artificial_Factors")) {
+                        Factors_name.add("먼지/연기/수증기");
+                        Factors_name.add("조리/화기");
+                        Factors_name.add("점검/공사중");
+                        Factors_name.add("냉/난방기");
+                        Factors_name.add("기타");
+                        description.setText("인위적 요인");
+                        for (int i = 0; i < Integer.parseInt(intent.getStringExtra("Num")); i++) {
+                            visitors.add(new BarEntry(i, Integer.parseInt(String.valueOf(snapshot.child(Factors).child(Integer.toString(i)).getValue()))));
+                        }
+                    } else if (Factors.equals("Administrative_Factors")) {
+                        Factors_name.add("습기");
+                        Factors_name.add("관리불량");
+                        Factors_name.add("기타");
+                        description.setText("관리적 요인");
+                        for (int i = 0; i < Integer.parseInt(intent.getStringExtra("Num")); i++) {
+                            visitors.add(new BarEntry(i, Integer.parseInt(String.valueOf(snapshot.child(Factors).child(Integer.toString(i)).getValue()))));
+                        }
+                    } else if (Factors.equals("System_Factors")) {
+                        Factors_name.add("노후");
+                        Factors_name.add("시공");
+                        Factors_name.add("기기오류");
+                        Factors_name.add("기타");
+                        description.setText("시스템 요인");
+                        for (int i = 0; i < Integer.parseInt(intent.getStringExtra("Num")); i++) {
+                            visitors.add(new BarEntry(i, Integer.parseInt(String.valueOf(snapshot.child(Factors).child(Integer.toString(i)).getValue()))));
+                        }
+                    } else if (Factors.equals("Etc_Factors")) {
+                        Factors_name.add("복구/원인불명");
+                        description.setText("기타 요인");
+                        for (int i = 0; i < Integer.parseInt(intent.getStringExtra("Num")); i++) {
+                            visitors.add(new BarEntry(i, Integer.parseInt(String.valueOf(snapshot.child(Factors).child(Integer.toString(i)).getValue()))));
+                        }
+                    }
+
+
+                    //float a = Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("0").getValue()));
+
+
+                    BarDataSet barDataSet = new BarDataSet(visitors, "요인별 색상");
+                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    barDataSet.setValueTextSize(24.7f);
+
+                    BarData barData = new BarData(barDataSet);
+
+                    //barChart.setFitBars(true);
+                    barChart.setData(barData);
+
+
+                    barChart.setDescription(description);
+                    barChart.animateY(2000);
+
+                    XAxis xAxis = barChart.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(Factors_name));
+                    xAxis.setDrawGridLines(false);
+                    xAxis.setDrawAxisLine(false);
+                    //xAxis.setCenterAxisLabels(true);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+                    xAxis.setGranularity(1f);
+                    xAxis.setTextSize(12f);
+                    xAxis.setLabelCount(visitors.size());
+                    xAxis.setGranularityEnabled(true);
+
+                    barChart.setDragEnabled(true);
+                    //barChart.setVisibleXRangeMaximum(5);
+
+                    float barSpace = 0.1f;
+                    float groupSpace = 0.5f;
+
+                    barData.setBarWidth(1f);
+                    //barChart.getXAxis().setAxisMinimum(0);
+
+                    barChart.invalidate();
                 }
 
-                float a = Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("0").getValue()));
-                //Log.d("a", String.valueOf(a));
-                visitors.add(new BarEntry(2014, Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("0").getValue()))));
-                visitors.add(new BarEntry(2015, Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("1").getValue()))));
-                visitors.add(new BarEntry(2016, Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("2").getValue()))));
-                visitors.add(new BarEntry(2017, Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("3").getValue()))));
-                visitors.add(new BarEntry(2018, Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("4").getValue()))));
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                BarDataSet barDataSet = new BarDataSet(visitors, "요인별 색상");
-                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(24.7f);
+                }
+            });
+        }
+        else if(Integer.parseInt(intent.getStringExtra("Statics")) == 1){
+            databaseReference_Place.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList Factors_name = new ArrayList();
+                    ArrayList<BarEntry> visitors = new ArrayList<>();
 
-                BarData barData = new BarData(barDataSet);
+                    String Factors = intent.getStringExtra("Factors");
+                    //Log.d("b", String.valueOf(Factors.equals(Factors2)));
 
-                barChart.setFitBars(true);
-                barChart.setData(barData);
-                barChart.getDescription().setText("인위적 요인");
-                barChart.animateY(2000);
-            }
+                    Description description = new Description();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    Factors_name.add("주거");
+                    Factors_name.add("공장/창고");
+                    Factors_name.add("노유자");
+                    Factors_name.add("기타");
+                    description.setText("장소별");
 
-            }
-        });
+                    visitors.add(new BarEntry(0, Integer.parseInt(String.valueOf(snapshot.child("Dwelling_Place").getValue()))));
+                    visitors.add(new BarEntry(1, Integer.parseInt(String.valueOf(snapshot.child("Factory_Place").getValue()))));
+                    visitors.add(new BarEntry(2, Integer.parseInt(String.valueOf(snapshot.child("Senior_Place").getValue()))));
+                    visitors.add(new BarEntry(3, Integer.parseInt(String.valueOf(snapshot.child("Etc_Place").getValue()))));
 
+                    BarDataSet barDataSet = new BarDataSet(visitors, "요인별 색상");
+                    barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    barDataSet.setValueTextColor(Color.BLACK);
+                    barDataSet.setValueTextSize(24.7f);
+
+                    BarData barData = new BarData(barDataSet);
+
+                    //barChart.setFitBars(true);
+                    barChart.setData(barData);
+
+
+                    barChart.setDescription(description);
+                    barChart.animateY(2000);
+
+                    XAxis xAxis = barChart.getXAxis();
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(Factors_name));
+                    xAxis.setDrawGridLines(false);
+                    xAxis.setDrawAxisLine(false);
+                    //xAxis.setCenterAxisLabels(true);
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setGranularity(1f);
+                    //xAxis.setTextSize(9f);
+                    xAxis.setLabelCount(visitors.size());
+                    xAxis.setGranularityEnabled(true);
+
+                    barChart.setDragEnabled(true);
+                    //barChart.setVisibleXRangeMaximum(5);
+
+                    float barSpace = 0.1f;
+                    float groupSpace = 0.5f;
+
+                    barData.setBarWidth(1f);
+                    //barChart.getXAxis().setAxisMinimum(0);
+
+                    barChart.invalidate();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
     }
 

@@ -38,7 +38,7 @@ public class MainActivity  extends AppCompatActivity {
     ArrayList<Helper> list;
     RecyclerView recyclerView;
     SearchView searchView;
-    Button addBtn, staticBtn;
+    Button addBtn, staticBtn, manualBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class MainActivity  extends AppCompatActivity {
         searchView = findViewById(R.id.searchview);
         addBtn = findViewById(R.id.addBtn);
         staticBtn = findViewById(R.id.StaticBtn);
+        manualBtn = findViewById(R.id.manualBtn);
 
     }
 
@@ -116,6 +117,13 @@ public class MainActivity  extends AppCompatActivity {
             }
         });
 
+        manualBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent staticIntent = new Intent(MainActivity.this, manual_Activity_1.class);
+                startActivity(staticIntent);
+            }
+        });
     }
 
     private void search(String str) {

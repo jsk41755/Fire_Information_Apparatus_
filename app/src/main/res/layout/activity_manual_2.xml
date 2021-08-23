@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".manual_Activity_2">
+
+    <TextView
+        android:id="@+id/Factors_All"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="장소별 적응성 감지기 및 해결방안"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="#000000"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 음식조리장소\n\n○ 해결방안 : 연기감지기를\n정온식 열감지기로 교체" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/food_cooking_place" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="○ 권장 적응성 감지기 : 열감지기(정온식)"
+                    android:textSize="15dp"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 흡연장소 인근\n\n○ 해결방안 : 설치장소 재배치 \n또는 열감지기로 변경" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/smoking_area" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="○ 권장 적응성 감지기 : 열감지기(정온식)"
+                    android:textSize="15dp"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 드레스룸(사워실 인근)\n\n○ 해결방안 : 연기감지기를\n정온식 열감지기로 교체"/>
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/dress_room" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="○ 권장 적응성 감지기 : 열감지기(정온식)"
+                    android:textSize="15dp"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 에어컨 인근\n\n○ 해결방안 : 외부 유입공기\n(에어컨 기류방향)에 영향을\n받는 장소인 경우 이격설치" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/near_the_air_conditioner" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 가전제품\n(가습기 등)으로\n발생하는 증기 발생 장소\n\n○ 해결방안 : 증기를 설치된 광전식\n감지기를 향해 사용 자제" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/steam_generation_location" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 건설현장 및 청소\n작업 구역\n\n○ 해결방안 : 시공 중 먼지커버로\n연기감지기를 덮음(시공 후 커버제거)" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/construction_site" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 발코니, 실외기실, 외부\n출입구 인근\n\n○ 해결방안 : 차동식연기감지기를\n정온식 열감지기로 교체" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/outdoor_room" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="○ 발생장소 : 천장 누수 우려장소\n\n○ 해결방안 : 누수 우려장소는\n감지기 설치 인근에 방수처리,\n감지기를 방수형 감지기로 변경" />
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ceiling_leak" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/next_page"
+        android:src="@drawable/ic_baseline_navigate_before_24"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_gravity="left"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/finish_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#00000000"
+            android:gravity="center"
+            android:onClick="mOnClose"
+            android:text="확인"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
