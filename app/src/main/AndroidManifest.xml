@@ -11,8 +11,11 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fire_information_apparatus">
-        <activity android:name=".manual_Activity_2"></activity>
-        <activity android:name=".manual_Activity_1" />
+        <activity android:name=".manual_Activity_2"
+            android:parentActivityName=".manual_Activity_1"
+            android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".manual_Activity_1"
+            android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".StaticsGraph_Activity" />
         <activity
             android:name=".LoadingActivity"

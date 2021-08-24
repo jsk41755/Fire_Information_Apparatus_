@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="매뉴얼"
-            android:backgroundTint="#000000"
+            android:backgroundTint="#C8707E"
             android:layout_gravity="center" />
 
     </LinearLayout>

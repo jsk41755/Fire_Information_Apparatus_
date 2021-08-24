@@ -113,7 +113,7 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                     //xAxis.setCenterAxisLabels(true);
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
                     xAxis.setGranularity(1f);
-                    xAxis.setTextSize(12f);
+                    xAxis.setTextSize(15f);
                     xAxis.setLabelCount(visitors.size());
                     xAxis.setGranularityEnabled(true);
 
