@@ -237,6 +237,7 @@ public class Add_ListView extends AppCompatActivity {
                                 databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
                                 databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
                                 databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
+                                databaseReference.child(sKey).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
                                 databaseReference.child(sKey).child("Num").setValue("1");
 
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("By_Case_Cause").setValue(By_Case_Cause_cv); //사례원인별
@@ -244,7 +245,7 @@ public class Add_ListView extends AppCompatActivity {
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Factors_Position").setValue(Con_Case_Stack);
 
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Object_Name").setValue(sObject_Name);
-                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
+
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각
 

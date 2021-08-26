@@ -120,7 +120,7 @@ public class MainActivity  extends AppCompatActivity {
         manualBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent staticIntent = new Intent(MainActivity.this, manual_Activity_1.class);
+                Intent staticIntent = new Intent(MainActivity.this, manual_Activity_3.class);
                 startActivity(staticIntent);
             }
         });

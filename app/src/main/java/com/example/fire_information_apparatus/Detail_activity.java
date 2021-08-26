@@ -62,6 +62,7 @@ public class Detail_activity extends AppCompatActivity {
         By_Place = findViewById(R.id.By_Place);
         Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
+        Jurisdiction_Center = findViewById(R.id.Jurisdiction_Center);
 
         General_Call_btn = findViewById(R.id.General_Call_btn);
         Cell_Call_btn = findViewById(R.id.Cell_Call_btn);
@@ -81,6 +82,7 @@ public class Detail_activity extends AppCompatActivity {
         Object_Manager.setText(intent.getStringExtra("Object_Manager"));
         Manager_General_Telephone.setText(intent.getStringExtra("Manager_General_Telephone"));
         Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
+        Jurisdiction_Center.setText(intent.getStringExtra("Jurisdiction_Center"));
         By_Place.setText(intent.getStringExtra("By_Place"));
 
 
@@ -88,16 +90,17 @@ public class Detail_activity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         refdetail = database.getReference("Data").child(intent.getStringExtra("Object_Name"));
         databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
-        Log.d("error", intent.getStringExtra("Object_Name"));
 
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        databaseReference.limitToLast(5).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for(DataSnapshot detail_snapshot : snapshot.getChildren()){
                     Detail_Helper detail_helper = detail_snapshot.getValue(Detail_Helper.class);
-                    arrayList.add(detail_helper);
+                    arrayList.add(0, detail_helper);
+                    Log.d("list_limit", String.valueOf(arrayList.size()));
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -127,6 +130,7 @@ public class Detail_activity extends AppCompatActivity {
                 intent_edit.putExtra("Edit_Old_Address", intent.getStringExtra("Old_Address"));
                 intent_edit.putExtra("Edit_New_Address", intent.getStringExtra("New_Address"));
                 intent_edit.putExtra("Edit_Object_Manager", intent.getStringExtra("Object_Manager"));
+                intent_edit.putExtra("Edit_Jurisdiction_Center",intent.getStringExtra("Jurisdiction_Center"));
                 intent_edit.putExtra("Edit_Manager_General_Telephone", intent.getStringExtra("Manager_General_Telephone"));
                 intent_edit.putExtra("Edit_Manager_Cell_Phone", intent.getStringExtra("Manager_Cell_Phone"));
                 context.startActivity(intent_edit);
@@ -201,6 +205,7 @@ if (i.resolveActivity(getPackageManager()) != null) {
                 Old_Address.setText(String.valueOf(snapshot.child("Old_Address").getValue()));
                 New_Address.setText(String.valueOf(snapshot.child("New_Address").getValue()));
                 Object_Manager.setText(String.valueOf(snapshot.child("Object_Manager").getValue()));
+                Jurisdiction_Center.setText(String.valueOf(snapshot.child("Jurisdiction_Center").getValue()));
                 Manager_General_Telephone.setText(String.valueOf(snapshot.child("Manager_General_Telephone").getValue()));
                 Manager_Cell_Phone.setText(String.valueOf(snapshot.child("Manager_Cell_Phone").getValue()));
                 By_Place.setText(String.valueOf(snapshot.child("By_Place").getValue()));
@@ -218,7 +223,7 @@ if (i.resolveActivity(getPackageManager()) != null) {
                 arrayList.clear();
                 for(DataSnapshot detail_snapshot : snapshot.getChildren()){
                     Detail_Helper detail_helper = detail_snapshot.getValue(Detail_Helper.class);
-                    arrayList.add(detail_helper);
+                    arrayList.add(0, detail_helper);
                 }
                 adapter.notifyDataSetChanged();
             }

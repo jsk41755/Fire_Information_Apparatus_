@@ -3,7 +3,6 @@ package com.example.fire_information_apparatus;
 public class Detail_Helper {
     String Reporting_Time;
     String By_Case_Cause;
-    String Jurisdiction_Center;
     String Reported_Content;
 
     String Factors_Stack;
@@ -16,10 +15,9 @@ public class Detail_Helper {
     public Detail_Helper() {
     }
 
-    public Detail_Helper(String Reporting_Time, String By_Case_Cause, String Jurisdiction_Center, String Reported_Content, String Factors_Stack, String Factors_Position, String Object_Name) {
+    public Detail_Helper(String Reporting_Time, String By_Case_Cause, String Reported_Content, String Factors_Stack, String Factors_Position, String Object_Name) {
         this.Reporting_Time = Reporting_Time;
         this.By_Case_Cause = By_Case_Cause;
-        this.Jurisdiction_Center = Jurisdiction_Center;
         this.Reported_Content = Reported_Content;
 
         this.Factors_Stack = Factors_Stack;
@@ -41,14 +39,6 @@ public class Detail_Helper {
 
     public void setBy_Case_Cause(String by_Case_Cause) {
         this.By_Case_Cause = by_Case_Cause;
-    }
-
-    public String getJurisdiction_Center() {
-        return Jurisdiction_Center;
-    }
-
-    public void setJurisdiction_Center(String jurisdiction_Center) {
-        Jurisdiction_Center = jurisdiction_Center;
     }
 
     public String getReported_Content() {

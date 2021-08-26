@@ -28,16 +28,16 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        Quote_list.add("일을 즐기면\n 일의 완성도가 높아진다.\n-아리스토텔레스-");
-        Quote_list.add("교육은 노후를 위한\n 최상의 양식이다.\n-아리스토텔레스-");
-        Quote_list.add("무지를 아는 것이\n곧 앎의 시작이다.\n-소크라테스-");
-        Quote_list.add("친구와 적은 있어야 한다.\n 친구는 충고를, 적은 경고를 해준다.\n-소크라테스-");
-        Quote_list.add("질문을 이해한다는 것은\n정답의 절반이다.\n-소크라테스-");
-        Quote_list.add("겉모습이란 속임수이다.\n-플라톤-");
-        Quote_list.add("남을 행복 되게 할 수 있는 사람만이\n또한 행복을 얻는다.\n-플라톤-");
-        Quote_list.add("마음을 행복하게 할 수 있는\n자만이 행복을 얻는다.\n-플라톤-");
-        Quote_list.add("성공의 핵심 요소는 인내심이다.\n-빌게이츠-");
-        Quote_list.add("삶이 웃기지 않는다면\n그것은 비극이다.\n-스티브호킹-");
+        Quote_list.add("방심 속에 화재있고\n관심 속에 예방 있다.");
+        Quote_list.add("불나는 곳 따로 없고 불조심은 너나 없다.");
+        Quote_list.add("크고 작은 화재사고 알고 보면 습관 때문");
+        Quote_list.add("화재예방 아무리 강조해도 지나치지 않습니다.");
+        Quote_list.add("점검은 미리미리 조치는 바로바로");
+        Quote_list.add("생활속의 불조심 화재없는 밝은 내일");
+        Quote_list.add("우리집 안전, 화재감지기 설치부터");
+        Quote_list.add("설마하면 큰일 날 불 조심하면 안전한 불");
+        Quote_list.add("화재 예방으로 예방은 실천으로");
+        Quote_list.add("작은 불은 대비부터 큰 불에는 대피먼저");
 
         Quote = findViewById(R.id.Quote);
 
@@ -54,6 +54,6 @@ public class LoadingActivity extends Activity {
             public void run() {
                 finish();
             }
-        }, 3000);
+        }, 2000);
     }
 }

@@ -40,9 +40,7 @@ public class Add_Object_Activity extends AppCompatActivity {
 
     ArrayList<String> Artificial_Factors,Administrative_Factors,System_Factors,Etc_Factors; //인위적요인, 관리적요인, 시스템적요인, 기타
 
-    String[] items = {"영운119안전센터", "오창안전센터", "내수안전센터","율량안전센터","북문안전센터","문의안전센터"};
     String[] by_Case_Cause = {"인위적요인", "관리적요인", "시스템요인","기타"};
-    String Jurisdiction_Center_Select;    //관할 선택
 
     ArrayList<String> by_Case_Cause_Select = new ArrayList<>(); // 장소 1차 선택
     String By_Case_Cause_cv;
@@ -81,7 +79,6 @@ public class Add_Object_Activity extends AppCompatActivity {
         Save_btn = findViewById(R.id.Save_btn);
         Close_btn = findViewById(R.id.Close_btn);
 
-        Spinner Jurisdiction_Center = findViewById(R.id.Add_Jurisdiction_Center);
 
         Spinner parent = findViewById(R.id.Add_By_Case_Cause_1);
         Spinner child = findViewById(R.id.Add_By_Case_Cause_2);
@@ -110,32 +107,13 @@ public class Add_Object_Activity extends AppCompatActivity {
 
 
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
-                getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, items
-        );
-
         ArrayAdapter<String> by_Case_Cause_adapter = new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, by_Case_Cause
         );
 
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         by_Case_Cause_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Jurisdiction_Center.setAdapter(adapter1);
         parent.setAdapter(by_Case_Cause_adapter);
-
-        Jurisdiction_Center.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Jurisdiction_Center_Select = items[position];
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         parent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -198,7 +176,6 @@ public class Add_Object_Activity extends AppCompatActivity {
                 if(Object_Name != null) {
                     databaseReference.child(key_string).child("Reporting_Time").setValue(sAdd_Reporting_Time);
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
-                    databaseReference.child(key_string).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
 
                     databaseReference.child(key_string).child("Factors_Stack").setValue(Case_Stack);

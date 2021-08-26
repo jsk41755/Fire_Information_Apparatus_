@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 public class manual_Activity_2 extends Activity {
 
     ImageButton before_page;
+    manual_Activity_3 manual_activity_3 = (manual_Activity_3)manual_Activity_3.manual_Activity_3;
     manual_Activity_1 manual_activity_1 = (manual_Activity_1)manual_Activity_1.manual_Activity_1;
 
     @Override
@@ -31,6 +32,7 @@ public class manual_Activity_2 extends Activity {
     }
 
     public void mOnClose(View view) {
+        manual_activity_3.finish();
         manual_activity_1.finish();
         finish();
     }

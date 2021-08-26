@@ -116,26 +116,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="관할센터 : "
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:padding="10dp"
-                    android:textColor="@color/black"/>
-
-                <Spinner
-                    android:id="@+id/Add_Jurisdiction_Center"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
