@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,17 +27,18 @@ public class Edit_Child_Activity extends Activity {
 
     Button add_button, exit_button;
 
-    EditText Edit_Old_Address, Edit_New_Address, Edit_Object_Manager, Edit_Manager_General_Telephone, Edit_Manager_Cell_Phone;
+    EditText Edit_Old_Address, Edit_New_Address, Edit_Object_Manager, Edit_Manager_General_Telephone, Edit_Manager_Cell_Phone, Edit_Declaration_Number_Phone;
 
     DatabaseReference reference;
-    String _Object_Name, _Old_Address, _New_Address, _Object_Manager, _Manager_General_Telephone, _Manager_Cell_Phone, _Jurisdiction_Center;
+    String _Object_Name, _Old_Address, _New_Address, _Object_Manager, _Manager_General_Telephone, _Manager_Cell_Phone, _Jurisdiction_Center, _Declaration_Number_Phone;
 
-    String[] items = {"영운119안전센터", "오창안전센터", "내수안전센터","율량안전센터","북문안전센터","문의안전센터"};
+    String[] items = {"영운", "오창", "내수","율량","북문","문의"};
     String Jurisdiction_Center_Select, Edit_Jurisdiction_Center;    //관할 선택
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_child);
 
@@ -45,7 +48,11 @@ public class Edit_Child_Activity extends Activity {
         Edit_New_Address = findViewById(R.id.Edit_New_Address);
         Edit_Object_Manager = findViewById(R.id.Edit_Object_Manager);
         Edit_Manager_General_Telephone = findViewById(R.id.Edit_Manager_General_Telephone);
+        Edit_Manager_General_Telephone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Edit_Manager_Cell_Phone = findViewById(R.id.Edit_Manager_Cell_Phone);
+        Edit_Manager_Cell_Phone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        Edit_Declaration_Number_Phone = findViewById(R.id.Edit_Declaration_Number_Phone);
+        Edit_Declaration_Number_Phone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
 
 
         Intent intent = getIntent();
@@ -55,6 +62,7 @@ public class Edit_Child_Activity extends Activity {
         Edit_Manager_General_Telephone.setText(intent.getStringExtra("Edit_Manager_General_Telephone"));
         Edit_Manager_Cell_Phone.setText(intent.getStringExtra("Edit_Manager_Cell_Phone"));
         Edit_Jurisdiction_Center = intent.getStringExtra("Jurisdiction_Center");
+        Edit_Declaration_Number_Phone.setText(intent.getStringExtra("Edit_Declaration_Number_Phone"));
 
         add_button = findViewById(R.id.addBtn);
 
@@ -103,9 +111,8 @@ public class Edit_Child_Activity extends Activity {
         _Jurisdiction_Center = intent2.getStringExtra("Edit_Jurisdiction_Center");
         _Manager_General_Telephone = intent2.getStringExtra("Edit_Manager_General_Telephone");
         _Manager_Cell_Phone = intent2.getStringExtra("Edit_Manager_Cell_Phone");
-/*
-        usernameLabel.setText(_USERNAME);
-        fullNameLabel.setText(_NAME);*/
+        _Declaration_Number_Phone = intent2.getStringExtra("Edit_Declaration_Number_Phone");
+
     }
 
     public void update(View view){
@@ -115,13 +122,8 @@ public class Edit_Child_Activity extends Activity {
         isNewAddressChanged();
         isOldAddressChanged();
         isJurisdiction_Center();
+        isDeclaration_Number_PhoneChanged();
 
-        /*if(isOldAddressChanged() || isNewAddressChanged() || isObjectManagerChanged() || isManagerGeneralTelephoneChanged() || isManagerCellPhoneChanged()){
-            Toast.makeText(this, "Data has been updated", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Data is same and can not be updated", Toast.LENGTH_SHORT).show();
-        }*/
         finish();
 
 
@@ -130,6 +132,15 @@ public class Edit_Child_Activity extends Activity {
     private boolean isManagerCellPhoneChanged() {
         if (!_Manager_Cell_Phone.equals(Edit_Manager_Cell_Phone.getText().toString())){
             reference.child(_Object_Name).child("Manager_Cell_Phone").setValue(Edit_Manager_Cell_Phone.getText().toString());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isDeclaration_Number_PhoneChanged() {
+        if (!_Declaration_Number_Phone.equals(Edit_Declaration_Number_Phone.getText().toString())){
+            reference.child(_Object_Name).child("Declaration_Number_Phone").setValue(Edit_Declaration_Number_Phone.getText().toString());
             return true;
         } else {
             return false;
@@ -164,7 +175,6 @@ public class Edit_Child_Activity extends Activity {
     }
 
     private boolean isOldAddressChanged() {
-        //reference.child(_Object_Name).child("_Object_Name").setValue(Edit_Object_Name_TIL.getEditText().getText().toString());
         if (!_Old_Address.equals(Edit_Old_Address.getText().toString())){
             reference.child(_Object_Name).child("Old_Address").setValue(Edit_Old_Address.getText().toString());
             return true;
@@ -174,7 +184,6 @@ public class Edit_Child_Activity extends Activity {
     }
 
     private boolean isJurisdiction_Center() {
-        //reference.child(_Object_Name).child("_Object_Name").setValue(Edit_Object_Name_TIL.getEditText().getText().toString());
         if (!_Jurisdiction_Center.equals(Edit_Jurisdiction_Center)){
             reference.child(_Object_Name).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);
             return true;

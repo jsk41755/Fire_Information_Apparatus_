@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Edit_Child_Activity"
     android:background="@color/white">
 
     <LinearLayout
@@ -44,6 +43,8 @@
 
         <EditText
             android:id="@+id/Edit_Reporting_Time"
+            android:maxLength="12"
+            android:hint="ex)202108301220"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

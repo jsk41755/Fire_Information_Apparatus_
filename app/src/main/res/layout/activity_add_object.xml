@@ -83,6 +83,8 @@
                     android:id="@+id/Add_Reporting_Time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="12"
+                    android:hint="ex)202108301220"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:padding="10dp" />

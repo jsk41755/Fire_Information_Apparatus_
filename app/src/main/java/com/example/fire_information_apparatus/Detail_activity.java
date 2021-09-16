@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,10 +34,10 @@ import static android.content.ContentValues.TAG;
 public class Detail_activity extends AppCompatActivity {
 
     private TextView Object_Name, By_Place, Old_Address, New_Address, Jurisdiction_Center, Reporting_Time, Object_Manager, Manager_General_Telephone,
-            Manager_Cell_Phone, by_Case_Cause;
+            Manager_Cell_Phone, dispatch_num, Declaration_Number_Phone;
     private Button editbtn, addbtn;
 
-    private ImageButton General_Call_btn, Cell_Call_btn;
+    private ImageButton General_Call_btn, Cell_Call_btn, Declaration_Number_Phone_Call_btn;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -48,6 +49,7 @@ public class Detail_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_detail);
 
         recyclerView = findViewById(R.id.Detail_RecyclerView);
@@ -63,9 +65,12 @@ public class Detail_activity extends AppCompatActivity {
         Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
         Jurisdiction_Center = findViewById(R.id.Jurisdiction_Center);
+        dispatch_num = findViewById(R.id.dispatch_num);
+        Declaration_Number_Phone = findViewById(R.id.Declaration_Number_Phone);
 
         General_Call_btn = findViewById(R.id.General_Call_btn);
         Cell_Call_btn = findViewById(R.id.Cell_Call_btn);
+        Declaration_Number_Phone_Call_btn = findViewById(R.id.Declaration_Number_Phone_Call_btn);
 
         Object_Name = findViewById(R.id.Object_Name);
         Old_Address = findViewById(R.id.Old_Address);
@@ -84,41 +89,13 @@ public class Detail_activity extends AppCompatActivity {
         Manager_Cell_Phone.setText(intent.getStringExtra("Manager_Cell_Phone"));
         Jurisdiction_Center.setText(intent.getStringExtra("Jurisdiction_Center"));
         By_Place.setText(intent.getStringExtra("By_Place"));
-
-
+        Declaration_Number_Phone.setText(intent.getStringExtra("Declaration_Number_Phone"));
+        dispatch_num.setText(intent.getStringExtra("Num"));
 
         database = FirebaseDatabase.getInstance();
         refdetail = database.getReference("Data").child(intent.getStringExtra("Object_Name"));
         databaseReference = database.getReference("Data").child(intent.getStringExtra("Object_Name")).child("Detail_Card");
 
-
-
-        databaseReference.limitToLast(5).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                arrayList.clear();
-                for(DataSnapshot detail_snapshot : snapshot.getChildren()){
-                    Detail_Helper detail_helper = detail_snapshot.getValue(Detail_Helper.class);
-                    arrayList.add(0, detail_helper);
-                    Log.d("list_limit", String.valueOf(arrayList.size()));
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Detail_activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        adapter = new Detail_Adapter(arrayList, this);
-        recyclerView.setAdapter(adapter);
-
-
-
-        /*String uKey = getIntent().getStringExtra("uKey");
-
-        DataRef = FirebaseDatabase.getInstance().getReference().child("Data").child(uKey);*/
 
         editbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +110,8 @@ public class Detail_activity extends AppCompatActivity {
                 intent_edit.putExtra("Edit_Jurisdiction_Center",intent.getStringExtra("Jurisdiction_Center"));
                 intent_edit.putExtra("Edit_Manager_General_Telephone", intent.getStringExtra("Manager_General_Telephone"));
                 intent_edit.putExtra("Edit_Manager_Cell_Phone", intent.getStringExtra("Manager_Cell_Phone"));
+                intent_edit.putExtra("Edit_Declaration_Number_Phone", intent.getStringExtra("Declaration_Number_Phone"));
+
                 context.startActivity(intent_edit);
             }
         });
@@ -145,6 +124,7 @@ public class Detail_activity extends AppCompatActivity {
                 Intent intent_add = new Intent(v.getContext(), Add_Object_Activity.class);
                 intent_add.putExtra("Add_Object_Name", intent.getStringExtra("Object_Name"));
                 intent_add.putExtra("Num", intent.getStringExtra("Num"));
+                intent_add.putExtra("Add_By_Place", intent.getStringExtra("By_Place"));
                 add_context.startActivity(intent_add);
             }
         });
@@ -156,12 +136,7 @@ public class Detail_activity extends AppCompatActivity {
 
                 Intent i = new Intent(Intent.ACTION_CALL);
                 i.setData(Uri.parse("tel:" + General_phone));
-/*
-Intent i = new Intent(Intent.ACTION_DIAL);
-i.setData(Uri.parse("tel:0612312312"));
-if (i.resolveActivity(getPackageManager()) != null) {
-      startActivity(i);
-}*/
+
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(i);
                 } else {
@@ -178,6 +153,22 @@ if (i.resolveActivity(getPackageManager()) != null) {
 
                 Intent i = new Intent(Intent.ACTION_CALL);
                 i.setData(Uri.parse("tel:" + Cell_phone));
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    startActivity(i);
+                } else {
+                    requestPermissions(new String[]{CALL_PHONE}, 1);
+                }
+            }
+        });
+
+        Declaration_Number_Phone_Call_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Declaration_Phone = Declaration_Number_Phone.getText().toString();
+
+                Intent i = new Intent(Intent.ACTION_CALL);
+                i.setData(Uri.parse("tel:" + Declaration_Phone));
 
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(i);
@@ -209,6 +200,7 @@ if (i.resolveActivity(getPackageManager()) != null) {
                 Manager_General_Telephone.setText(String.valueOf(snapshot.child("Manager_General_Telephone").getValue()));
                 Manager_Cell_Phone.setText(String.valueOf(snapshot.child("Manager_Cell_Phone").getValue()));
                 By_Place.setText(String.valueOf(snapshot.child("By_Place").getValue()));
+                Declaration_Number_Phone.setText(String.valueOf(snapshot.child("Declaration_Number_Phone").getValue()));
             }
 
             @Override
@@ -237,7 +229,6 @@ if (i.resolveActivity(getPackageManager()) != null) {
         adapter = new Detail_Adapter(arrayList, this);
         recyclerView.setAdapter(adapter);
 
-        Log.d(TAG,"onRestart" + intent.getStringExtra("Old_Address"));
     }
 
 }

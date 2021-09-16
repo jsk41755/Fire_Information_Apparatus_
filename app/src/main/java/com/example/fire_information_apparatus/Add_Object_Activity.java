@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +52,7 @@ public class Add_Object_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_add_object);
 
         Artificial_Factors = new ArrayList<>();
@@ -75,6 +78,7 @@ public class Add_Object_Activity extends AppCompatActivity {
 
         Object_Name_txt = findViewById(R.id.Object_Name);
         Add_Reporting_Time = findViewById(R.id.Add_Reporting_Time);
+        Add_Reporting_Time.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Add_Reported_Content = findViewById(R.id.Add_Reported_Content);
         Save_btn = findViewById(R.id.Save_btn);
         Close_btn = findViewById(R.id.Close_btn);
@@ -85,6 +89,7 @@ public class Add_Object_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String Object_Name = intent.getStringExtra("Add_Object_Name");
+        String By_Place = intent.getStringExtra("Add_By_Place");
         String Num = intent.getStringExtra("Num");
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -93,9 +98,7 @@ public class Add_Object_Activity extends AppCompatActivity {
 
         Object_Name_txt.setText(Object_Name);
 
-        Log.d("add_object",Num);
         key = Integer.parseInt(Num);
-        Log.d("add_object12",Integer.toString(key));
 
         for( num = 0; num <= key; num++) {
 
@@ -105,7 +108,22 @@ public class Add_Object_Activity extends AppCompatActivity {
         key_string = Integer.toString(num);
         Log.d("add_object",key_string);
 
+        String On_Place;
 
+        if(By_Place.equals("공장/창고")){
+            On_Place = "Factory_Place";
+        }
+        else if(By_Place.equals("주거")){
+            On_Place = "Dwelling_Place";
+        }
+        else if(By_Place.equals("노유자")){
+            On_Place = "Senior_Place";
+        }
+        else if(By_Place.equals("기타")){
+            On_Place = "Etc_Place";
+        }
+        else
+            On_Place = "";
 
         ArrayAdapter<String> by_Case_Cause_adapter = new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, by_Case_Cause
@@ -172,9 +190,11 @@ public class Add_Object_Activity extends AppCompatActivity {
 
                 firebaseDatabase.getReference().child("Data").child(Object_Name).child("Num").setValue(key_string);
 
+                if(Object_Name != null || sAdd_Reporting_Time.length() != 12) {
+                    String sAdd_Reporting_Time_Set = sAdd_Reporting_Time.substring(0,4) + "년 " + sAdd_Reporting_Time.substring(4,6) + "월 " + sAdd_Reporting_Time.substring(6,8) + "일 " +
+                            sAdd_Reporting_Time.substring(8,10) + "시" + sAdd_Reporting_Time.substring(10,12) + "분";
 
-                if(Object_Name != null) {
-                    databaseReference.child(key_string).child("Reporting_Time").setValue(sAdd_Reporting_Time);
+                    databaseReference.child(key_string).child("Reporting_Time").setValue(sAdd_Reporting_Time_Set);
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
 
@@ -182,21 +202,42 @@ public class Add_Object_Activity extends AppCompatActivity {
                     databaseReference.child(key_string).child("Factors_Position").setValue(Con_Case_Stack);
                     databaseReference.child(key_string).child("Object_Name").setValue(Object_Name);//관할센터
 
+                    Log.d("On_Place",On_Place);
+
+                    defstat.child("By_Place").child(On_Place).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.child(sAdd_Reporting_Time.substring(0, 4)).child(sAdd_Reporting_Time.substring(4, 6)).getValue() != null) {
+                                int value = (int) snapshot.child(sAdd_Reporting_Time.substring(0, 4)).child(sAdd_Reporting_Time.substring(4, 6)).getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                value += 1;//숫자를 1 증가시켜서
+                                defstat.child("By_Place").child(On_Place).child(sAdd_Reporting_Time.substring(0, 4)).child(sAdd_Reporting_Time.substring(4, 6)).setValue(value);//저장
+                            }
+                            else{
+                                defstat.child("By_Place").child(On_Place).child(sAdd_Reporting_Time.substring(0, 4)).child(sAdd_Reporting_Time.substring(4, 6)).setValue(1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                             value +=1;//숫자를 1 증가시켜서
-                            // Log.d("same", Jurisdiction_Center_Stack);
+
                             defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+
                         }
                     });
+
                 }
                 finish();
             }

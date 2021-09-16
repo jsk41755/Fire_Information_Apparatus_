@@ -1,6 +1,8 @@
 package com.example.fire_information_apparatus;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 
 public class Add_ListView extends AppCompatActivity {
 
-    private EditText Object_Name, Old_Address, New_Address, Reporting_Time, Object_Manager, Manager_General_Telephone, Manager_Cell_Phone, Reported_Content;
+    private EditText Object_Name, Old_Address, New_Address, Reporting_Time, Object_Manager, Manager_General_Telephone, Manager_Cell_Phone, Reported_Content, Declaration_Number_Phone;
     private Button Edit_btn, Close_btn;
 
     ArrayAdapter<String> arrayAdapter_child;
@@ -34,8 +36,8 @@ public class Add_ListView extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, defstat;
 
-    String[] items = {"영운119안전센터", "오창안전센터", "내수안전센터","율량안전센터","북문안전센터","문의안전센터"};
-    String[] items2 = {"공장", "주거", "노유자","기타"};
+    String[] items = {"영운", "오창", "내수","율량","북문","문의"};
+    String[] items2 = {"공장/창고", "주거", "노유자","기타"};
     String[] by_Case_Cause = {"인위적요인", "관리적요인", "시스템요인","기타"};
     String Jurisdiction_Center_Select;    //관할 선택
     String By_Place_Select; // 장소 선택
@@ -49,6 +51,7 @@ public class Add_ListView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_information);
 
@@ -77,10 +80,15 @@ public class Add_ListView extends AppCompatActivity {
         Old_Address = findViewById(R.id.Old_Address);
         New_Address = findViewById(R.id.New_Address);
         Reporting_Time = findViewById(R.id.Reporting_Time);
+        Reporting_Time.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Object_Manager = findViewById(R.id.Object_Manager);
         Manager_General_Telephone = findViewById(R.id.Manager_General_Telephone);
+        Manager_General_Telephone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Manager_Cell_Phone = findViewById(R.id.Manager_Cell_Phone);
+        Manager_Cell_Phone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Reported_Content= findViewById(R.id.Reported_Content);
+        Declaration_Number_Phone = findViewById(R.id.Declaration_Number_Phone);
+        Declaration_Number_Phone.setRawInputType(InputType.TYPE_CLASS_NUMBER);
 
         Edit_btn = findViewById(R.id.edit_button);
 
@@ -207,7 +215,8 @@ public class Add_ListView extends AppCompatActivity {
         Edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sObject_Name = Object_Name.getText().toString().trim();
+                Log.d("same5123", Object_Name.getText().toString().trim());
+                String sObject_Name = (Object_Name.getText().toString().trim());
                 String sOld_Address = Old_Address.getText().toString().trim();
                 String sNew_Address = New_Address.getText().toString().trim();
                 String sReporting_Time = Reporting_Time.getText().toString().trim();
@@ -215,27 +224,51 @@ public class Add_ListView extends AppCompatActivity {
                 String sManager_General_Telephone = Manager_General_Telephone.getText().toString().trim();
                 String sManager_Cell_Phone = Manager_Cell_Phone.getText().toString().trim();
                 String sReported_Content = Reported_Content.getText().toString().trim();
+                String sDeclaration_Number_Phone = Declaration_Number_Phone.getText().toString().trim();
 
-                String sKey = sObject_Name;
+                String sKey = sObject_Name.replaceAll(" ", "");
                 String Detail_Card = "Detail_Card";
-
-                String abc = "abcdedf";
 
                 databaseReference.child(sKey).child("Object_Name").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getValue(String.class) != null){
-                            Toast.makeText(getApplicationContext(),"중복된 이름이 존재합니다!!",Toast.LENGTH_SHORT).show();
-                            Log.d("same", "중복중복");
+                        if(dataSnapshot.getValue(String.class) != null || sReporting_Time.length() != 12 || sKey == "" || !(sManager_General_Telephone.length() == 10 || sManager_General_Telephone.length() == 11) || sManager_Cell_Phone.length() != 11 || !(sDeclaration_Number_Phone.length() == 11 || sDeclaration_Number_Phone.length() == 10)){
+                            Toast.makeText(getApplicationContext(),"중복된 이름 또는 \n정보를 충분히 입력하지 않았습니다.\n전화번호가 없을경우 0으로 채우십시오.",Toast.LENGTH_LONG).show();
+                            Log.d("sReporting_Time", String.valueOf(dataSnapshot.getValue(String.class) != null));
+                            Log.d("sManager_General_Tel", String.valueOf(sKey == ""));
+                            Log.d("sDeclaration_Number", String.valueOf((sManager_General_Telephone.length() == 10 || sManager_General_Telephone.length() == 11)));
+                            Log.d("sManager_Cell_Phone", String.valueOf((sDeclaration_Number_Phone.length() == 11 || sDeclaration_Number_Phone.length() == 10)));
+
                         } else {
-                            Log.d("same", "중복이 아냐?");
+                            Log.d("same", sObject_Name);
                             if(sKey != null){
-                                databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name);
+                                String sManager_General_Telephone_com;
+                                String sDeclaration_Number_Phone_com;
+
+                                if(sManager_General_Telephone.length() == 10){
+                                    sManager_General_Telephone_com = sManager_General_Telephone.substring(0,3) + "-" + sManager_General_Telephone.substring(3,6) + "-" + sManager_General_Telephone.substring(6,10);
+                                }
+                                else{
+                                    sManager_General_Telephone_com = sManager_General_Telephone.substring(0,3) + "-" + sManager_General_Telephone.substring(3,7) + "-" + sManager_General_Telephone.substring(7,11);
+                                }
+
+                                String sManager_Cell_Phone_com = sManager_Cell_Phone.substring(0,3) + "-" + sManager_Cell_Phone.substring(3,7) + "-" + sManager_Cell_Phone.substring(7,11);
+
+                                if(sDeclaration_Number_Phone.length() == 10){
+                                    sDeclaration_Number_Phone_com = sDeclaration_Number_Phone.substring(0,3) + "-" + sDeclaration_Number_Phone.substring(3,6) + "-" + sDeclaration_Number_Phone.substring(6,10);
+                                }
+                                else{
+                                    sDeclaration_Number_Phone_com = sDeclaration_Number_Phone.substring(0,3) + "-" + sDeclaration_Number_Phone.substring(3,7) + "-" + sDeclaration_Number_Phone.substring(7,11);
+                                }
+
+
+                                databaseReference.child(sKey).child("Object_Name").setValue(sObject_Name.replaceAll(" ", ""));
                                 databaseReference.child(sKey).child("Old_Address").setValue(sOld_Address);
                                 databaseReference.child(sKey).child("New_Address").setValue(sNew_Address);
                                 databaseReference.child(sKey).child("Object_Manager").setValue(sObject_Manager);
-                                databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone);
-                                databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone);
+                                databaseReference.child(sKey).child("Manager_General_Telephone").setValue(sManager_General_Telephone_com);
+                                databaseReference.child(sKey).child("Manager_Cell_Phone").setValue(sManager_Cell_Phone_com);
+                                databaseReference.child(sKey).child("Declaration_Number_Phone").setValue(sDeclaration_Number_Phone_com);
                                 databaseReference.child(sKey).child("By_Place").setValue(By_Place_Select);
                                 databaseReference.child(sKey).child("Jurisdiction_Center").setValue(Jurisdiction_Center_Select);//관할센터
                                 databaseReference.child(sKey).child("Num").setValue("1");
@@ -247,7 +280,11 @@ public class Add_ListView extends AppCompatActivity {
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Object_Name").setValue(sObject_Name);
 
                                 databaseReference.child(sKey).child(Detail_Card).child("1").child("Reported_Content").setValue(sReported_Content); //조치내용
-                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time); //신고시각
+
+                                String sReporting_Time_Set = sReporting_Time.substring(0,4) + "년 " + sReporting_Time.substring(4,6) + "월 " + sReporting_Time.substring(6,8) + "일 " +
+                                        sReporting_Time.substring(8,10) + "시" + sReporting_Time.substring(10,12) + "분";
+
+                                databaseReference.child(sKey).child(Detail_Card).child("1").child("Reporting_Time").setValue(sReporting_Time_Set); //신고시각
 
 
                                 Object_Name.setText("");
@@ -263,14 +300,18 @@ public class Add_ListView extends AppCompatActivity {
                                 defstat.child("By_Place").child(By_Place).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                        value +=1;//숫자를 1 증가시켜서
-                                        defstat.child("By_Place").child(By_Place).setValue(value);//저장
+                                        if(snapshot.child("By_Place").child(By_Place).child(sReporting_Time.substring(0, 4)).child(sReporting_Time.substring(4, 6)).getValue() != null) {
+                                            int value = (int) snapshot.child("By_Place").child(sReporting_Time.substring(0, 4)).child(sReporting_Time.substring(4, 6)).getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                            value += 1;//숫자를 1 증가시켜서
+                                            defstat.child("By_Place").child(By_Place).child(sReporting_Time.substring(0, 4)).child(sReporting_Time.substring(4, 6)).setValue(value);//저장
+                                        }
+                                        else{
+                                            defstat.child("By_Place").child(By_Place).child(sReporting_Time.substring(0, 4)).child(sReporting_Time.substring(4, 6)).setValue(1);
+                                        }
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                                     }
                                 });
 
@@ -279,15 +320,14 @@ public class Add_ListView extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                                         value +=1;//숫자를 1 증가시켜서
-                                        // Log.d("same", Jurisdiction_Center_Stack);
                                         defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                                     }
                                 });
+
                                 finish();
                             }
                             else{
@@ -297,6 +337,7 @@ public class Add_ListView extends AppCompatActivity {
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(),"오류!오류! 예방과에 연락주시기 바랍니다.",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -308,8 +349,5 @@ public class Add_ListView extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
-
 }

@@ -11,31 +11,51 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fire_information_apparatus">
-        <activity android:name=".manual_Activity_3"
-            android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".Place_Static"></activity>
+        <activity
+            android:name=".manual_Activity_3"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".manual_Activity_2"
             android:parentActivityName=".manual_Activity_1"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".manual_Activity_1"
             android:parentActivityName=".manual_Activity_3"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".StaticsGraph_Activity" />
+        <activity
+            android:name=".StaticsGraph_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoadingActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".Statics"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".Detail_Edit_Activity" />
-        <activity android:name=".Add_Object_Activity" />
+        <activity
+            android:name=".Detail_Edit_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Add_Object_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Edit_Child_Activity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".Detail_activity" />
-        <activity android:name=".Add_ListView" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".Detail_activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Add_ListView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

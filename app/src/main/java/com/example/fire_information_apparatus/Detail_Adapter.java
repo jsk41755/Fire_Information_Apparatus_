@@ -42,14 +42,11 @@ public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailVi
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                //Log.d("position", String.valueOf(position));
-
                 Intent intent = new Intent(v.getContext(), Detail_Edit_Activity.class);
 
                 intent.putExtra("Position",String.valueOf(position+1));
                 intent.putExtra("Reporting_Time",arrayList.get(position).getReporting_Time());
                 intent.putExtra("Reported_Content",arrayList.get(position).getReported_Content());
-                //intent.putExtra("Position",String.valueOf(position+1));
 
                 intent.putExtra("Factors_Stack",arrayList.get(position).getFactors_Stack());
                 intent.putExtra("Factors_Position",arrayList.get(position).getFactors_Position());
@@ -62,7 +59,6 @@ public class Detail_Adapter extends RecyclerView.Adapter<Detail_Adapter.DetailVi
 
     @Override
     public int getItemCount() {
-        Log.d("ergerrr", String.valueOf(arrayList.size()));
         return (arrayList != null ? arrayList.size() : 0);
     }
 

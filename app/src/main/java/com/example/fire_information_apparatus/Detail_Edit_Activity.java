@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,12 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.ServerValues;
 
 import java.util.ArrayList;
 
@@ -27,12 +31,12 @@ public class Detail_Edit_Activity extends AppCompatActivity {
     private EditText Add_Reporting_Time, Add_Reported_Content;
     private Button Edit_btn, Close_btn;
 
-    String key_string;
+    String key_string, On_Place;
 
     String Add_Reporting_Time_TXT, Add_Reported_Content_TXT;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, defstat;
+    DatabaseReference databaseReference, defstat, databaseReference_Place;
 
     ArrayAdapter<String> arrayAdapter_child;
 
@@ -48,6 +52,7 @@ public class Detail_Edit_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_detail_edit);
 
         Artificial_Factors = new ArrayList<>();
@@ -72,6 +77,7 @@ public class Detail_Edit_Activity extends AppCompatActivity {
         Etc_Factors.add("복구/원인불명");
 
         Add_Reporting_Time = findViewById(R.id.Edit_Reporting_Time);
+        Add_Reporting_Time.setRawInputType(InputType.TYPE_CLASS_NUMBER);
         Add_Reported_Content = findViewById(R.id.Edit_Reported_Content);
         Edit_btn = findViewById(R.id.edit_button);
         Close_btn = findViewById(R.id.exit_button);
@@ -86,8 +92,12 @@ public class Detail_Edit_Activity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Data").child(intent2.getStringExtra("Object_Name")).child("Detail_Card");
+        databaseReference_Place = firebaseDatabase.getReference().child("Data").child(intent2.getStringExtra("Object_Name"));
         defstat = firebaseDatabase.getReference().child("Statistics");
 
+
+        Log.d("Add_Reporting_Time_TXT", Add_Reporting_Time_TXT.substring(0,4));
+        Log.d("Add_Reporting_Time_TXT", Add_Reporting_Time_TXT.substring(6,8));
 
         ArrayAdapter<String> by_Case_Cause_adapter = new ArrayAdapter<String>(
                 getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, by_Case_Cause
@@ -153,50 +163,106 @@ public class Detail_Edit_Activity extends AppCompatActivity {
                 String sAdd_Reporting_Time = Add_Reporting_Time.getText().toString().trim();
                 String sAdd_Reported_Content = Add_Reported_Content.getText().toString().trim();
 
-                //firebaseDatabase.getReference().child("Data").child(intent2.getStringExtra("Position")).child("Num").setValue(key_string);
-
-
-                if(intent2.getStringExtra("Object_Name") != null) {
+                if(intent2.getStringExtra("Object_Name") != null && sAdd_Reporting_Time.length() == 12) {
 
                     defstat.child("Case_Stack").child(intent2.getStringExtra("Factors_Stack")).child(intent2.getStringExtra("Factors_Position")).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                            value -=1;//숫자를 1 증가시켜서
-                            // Log.d("same", Jurisdiction_Center_Stack);
-                            defstat.child("Case_Stack").child(intent2.getStringExtra("Factors_Stack")).child(intent2.getStringExtra("Factors_Position")).setValue(value);//저장
+                            if(!(snapshot.getValue().equals(""))) {
+                                int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                value -= 1;//숫자를 1 감소시키고,
+                                defstat.child("Case_Stack").child(intent2.getStringExtra("Factors_Stack")).child(intent2.getStringExtra("Factors_Position")).setValue(value);//저장
+                            }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                         }
                     });
+                    String sReporting_Time_Set = sAdd_Reporting_Time.substring(0,4) + "년 " + sAdd_Reporting_Time.substring(4,6) + "월 " + sAdd_Reporting_Time.substring(6,8) + "일 " +
+                            sAdd_Reporting_Time.substring(8,10) + "시" + sAdd_Reporting_Time.substring(10,12) + "분";
 
-                    databaseReference.child(key_string).child("Reporting_Time").setValue(sAdd_Reporting_Time);
+                    databaseReference.child(key_string).child("Reporting_Time").setValue(sReporting_Time_Set);
                     databaseReference.child(key_string).child("By_Case_Cause").setValue(By_Case_Cause_cv);
                     databaseReference.child(key_string).child("Reported_Content").setValue(sAdd_Reported_Content);
 
                     databaseReference.child(key_string).child("Factors_Stack").setValue(Case_Stack);
                     databaseReference.child(key_string).child("Factors_Position").setValue(Con_Case_Stack);
 
+                    databaseReference_Place.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(String.valueOf(snapshot.child("By_Place").getValue()).equals("공장/창고")){
+                                On_Place = "Factory_Place";
+                            }
+                            else if(String.valueOf(snapshot.child("By_Place").getValue()).equals("주거")){
+                                On_Place = "Dwelling_Place";
+                            }
+                            else if(String.valueOf(snapshot.child("By_Place").getValue()).equals("노유자")){
+                                On_Place = "Senior_Place";
+                            }
+                            else if(String.valueOf(snapshot.child("By_Place").getValue()).equals("기타")){
+                                On_Place = "Etc_Place";
+                            }
+                            else
+                                On_Place = "";
+
+                            defstat.child("By_Place").child(On_Place).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        int value = (int) snapshot.child(Add_Reporting_Time_TXT.substring(0,4)).child(Add_Reporting_Time_TXT.substring(6,8)).getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                        value -= 1;//숫자를 1 감소시켜서
+                                        defstat.child("By_Place").child(On_Place).child(Add_Reporting_Time_TXT.substring(0,4)).child(Add_Reporting_Time_TXT.substring(6,8)).setValue(value);//저장
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
+
+                            defstat.child("By_Place").child(On_Place).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if(snapshot.child(sAdd_Reporting_Time.substring(0,4)).child(sAdd_Reporting_Time.substring(4,6)).getValue() != null) {
+                                        int value = (int) snapshot.child(sAdd_Reporting_Time.substring(0,4)).child(sAdd_Reporting_Time.substring(4,6)).getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                        value += 1;//숫자를 1 증가시켜서
+                                        defstat.child("By_Place").child(On_Place).child(sAdd_Reporting_Time.substring(0,4)).child(sAdd_Reporting_Time.substring(4,6)).setValue(value);//저장
+                                    }
+                                    else{
+                                        defstat.child("By_Place").child(On_Place).child(sAdd_Reporting_Time.substring(0,4)).child(sAdd_Reporting_Time.substring(4,6)).setValue(1);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                             value +=1;//숫자를 1 증가시켜서
-                            // Log.d("same", Jurisdiction_Center_Stack);
                             defstat.child("Case_Stack").child(Case_Stack).child(Con_Case_Stack).setValue(value);//저장
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                         }
                     });
-
+                    finish();
                 }
-                finish();
+                else{
+                    Toast.makeText(getApplicationContext(),"출동시각을 정확히 입력하지 않으셨습니다.\n ex)202108301220",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

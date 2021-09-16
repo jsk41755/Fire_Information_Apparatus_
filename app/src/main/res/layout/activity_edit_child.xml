@@ -29,7 +29,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="520dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
@@ -104,6 +104,8 @@
 
                 <EditText
                     android:id="@+id/Edit_Object_Manager"
+                    android:padding="5dp"
+                    android:hint="이름"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -128,6 +130,9 @@
 
                 <EditText
                     android:id="@+id/Edit_Manager_General_Telephone"
+                    android:hint="ex)0101234567 ('-'없이 10숫자)"
+                    android:padding="5dp"
+                    android:textSize="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -153,6 +158,34 @@
 
                 <EditText
                     android:id="@+id/Edit_Manager_Cell_Phone"
+                    android:hint="ex)01012345678 ('-'없이 11숫자)"
+                    android:textSize="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_corner_rectangle"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="신고자 번호 : "
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/Edit_Declaration_Number_Phone"
+                    android:hint="ex)01012345678 ('-'없이 11숫자)"
+                    android:textSize="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -160,10 +193,12 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout7"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/edittext_rounded_corner_rectangle"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
                 android:padding="10dp">
 
                 <TextView
@@ -175,6 +210,8 @@
 
                 <Spinner
                     android:id="@+id/Edit_Jurisdiction_Center"
+                    android:background="@drawable/spinner_background"
+                    android:spinnerMode="dialog"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"/>
 

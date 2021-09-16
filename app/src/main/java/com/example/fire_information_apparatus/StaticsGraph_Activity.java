@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class StaticsGraph_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_statics_graph);
 
         database = FirebaseDatabase.getInstance();
@@ -49,7 +51,6 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                     ArrayList<BarEntry> visitors = new ArrayList<>();
 
                     String Factors = intent.getStringExtra("Factors");
-                    //Log.d("b", String.valueOf(Factors.equals(Factors2)));
 
                     Description description = new Description();
 
@@ -88,18 +89,13 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                         }
                     }
 
-
-                    //float a = Integer.parseInt(String.valueOf(snapshot.child("Artificial_Factors").child("0").getValue()));
-
-
                     BarDataSet barDataSet = new BarDataSet(visitors, "요인별 색상");
                     barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                     barDataSet.setValueTextColor(Color.BLACK);
-                    barDataSet.setValueTextSize(24.7f);
+                    barDataSet.setValueTextSize(12.7f);
 
                     BarData barData = new BarData(barDataSet);
 
-                    //barChart.setFitBars(true);
                     barChart.setData(barData);
 
 
@@ -110,21 +106,20 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(Factors_name));
                     xAxis.setDrawGridLines(false);
                     xAxis.setDrawAxisLine(false);
-                    //xAxis.setCenterAxisLabels(true);
-                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setGranularity(1f);
-                    xAxis.setTextSize(15f);
+                    xAxis.setTextSize(12f);
                     xAxis.setLabelCount(visitors.size());
                     xAxis.setGranularityEnabled(true);
 
                     barChart.setDragEnabled(true);
-                    //barChart.setVisibleXRangeMaximum(5);
+                    barChart.setVisibleXRangeMaximum(3);
 
                     float barSpace = 0.1f;
                     float groupSpace = 0.5f;
 
-                    barData.setBarWidth(1f);
-                    //barChart.getXAxis().setAxisMinimum(0);
+                    barData.setBarWidth(0.8f);
 
                     barChart.invalidate();
                 }
@@ -143,7 +138,6 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                     ArrayList<BarEntry> visitors = new ArrayList<>();
 
                     String Factors = intent.getStringExtra("Factors");
-                    //Log.d("b", String.valueOf(Factors.equals(Factors2)));
 
                     Description description = new Description();
 
@@ -165,7 +159,6 @@ public class StaticsGraph_Activity extends AppCompatActivity {
 
                     BarData barData = new BarData(barDataSet);
 
-                    //barChart.setFitBars(true);
                     barChart.setData(barData);
 
 
@@ -176,21 +169,19 @@ public class StaticsGraph_Activity extends AppCompatActivity {
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(Factors_name));
                     xAxis.setDrawGridLines(false);
                     xAxis.setDrawAxisLine(false);
-                    //xAxis.setCenterAxisLabels(true);
+
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setGranularity(1f);
-                    //xAxis.setTextSize(9f);
+
                     xAxis.setLabelCount(visitors.size());
                     xAxis.setGranularityEnabled(true);
 
                     barChart.setDragEnabled(true);
-                    //barChart.setVisibleXRangeMaximum(5);
 
                     float barSpace = 0.1f;
                     float groupSpace = 0.5f;
 
                     barData.setBarWidth(1f);
-                    //barChart.getXAxis().setAxisMinimum(0);
 
                     barChart.invalidate();
                 }

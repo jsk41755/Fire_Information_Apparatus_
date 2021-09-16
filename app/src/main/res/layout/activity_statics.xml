@@ -5,7 +5,7 @@
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="560dp">
 
@@ -404,115 +404,18 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/Place"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FDB7BA"
-        android:gravity="center"
-        android:text="장소별"
-        android:textColor="#fff"
-        android:textSize="20dp" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0, 1, 2, 3"
-        android:padding="5dp">
-
-        <TableRow
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="공장/창고"
-                android:textColor="#000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="주거"
-                android:textColor="#000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="노유자"
-                android:textColor="#000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:layout_marginEnd="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="기타"
-                android:textColor="#000"
-                android:textSize="15dp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/Factory_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="공장/창고"
-                android:textColor="#000000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:id="@+id/Dwelling_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="주거"
-                android:textColor="#000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:id="@+id/Senior_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="노유자"
-                android:textColor="#000"
-                android:textSize="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <TextView
-                android:id="@+id/Etc_Place"
-                android:layout_marginEnd="3dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="기타"
-                android:textColor="#000"
-                android:textSize="15dp" />
-        </TableRow>
-
-    </TableLayout>
-
     </LinearLayout>
 
-    </ScrollView>
+        <ImageButton
+            android:id="@+id/next_page2"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="right|bottom"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_navigate_next_24" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

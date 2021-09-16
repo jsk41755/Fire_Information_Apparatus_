@@ -4,12 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class manual_Activity_3 extends Activity {
     ImageButton next_page;
@@ -19,8 +27,20 @@ public class manual_Activity_3 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_manual3);
+
+        ImageSlider imageSlider = findViewById(R.id.imageSlider);
+
+        List<SlideModel> slideModels = new ArrayList<>();
+        slideModels.add(new SlideModel(R.drawable.fire_image1, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.fire_image2, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.fire_image3, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.fire_image4, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.fire_image5, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.fire_image6, ScaleTypes.CENTER_CROP));
+        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
 
         manual_Activity_3 = manual_Activity_3.this;
 

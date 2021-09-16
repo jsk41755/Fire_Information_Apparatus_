@@ -51,8 +51,7 @@
                 android:id="@+id/Object_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="enter value"
+                android:hint="필수작성"
                 android:padding="10dp"
                 android:layout_marginTop="15dp"/>
 
@@ -127,7 +126,8 @@
 
             <Spinner
                 android:id="@+id/Jurisdiction_Center"
-                android:layout_width="130dp"
+                android:spinnerMode="dialog"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -141,7 +141,8 @@
 
             <Spinner
                 android:id="@+id/et_value5"
-                android:layout_width="120dp"
+                android:spinnerMode="dialog"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"/>
 
 
@@ -168,9 +169,36 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter value"
+            android:maxLength="12"
+            android:hint="ex)202108301220"
             android:padding="10dp"/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신고자전화 : "
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/Declaration_Number_Phone"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ex)01012345678 ('-'없이 11숫자)"
+                android:textSize="15dp"
+                android:maxLength="11"
+                android:padding="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -193,7 +221,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter value"
+            android:hint="이름"
             android:padding="10dp"/>
 
         </LinearLayout>
@@ -218,7 +246,9 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter value"
+            android:hint="ex)0101234567 ('-'없이 10숫자)"
+            android:textSize="15dp"
+            android:maxLength="10"
             android:padding="10dp"/>
 
         </LinearLayout>
@@ -243,9 +273,12 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="enter value"
+            android:hint="ex)01012345678 ('-'없이 11숫자)"
+            android:maxLength="11"
+            android:textSize="15dp"
             android:padding="10dp"/>
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -266,13 +299,14 @@
 
         <Spinner
             android:id="@+id/et_value11"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"/>
+            android:spinnerMode="dialog"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/et_value12"
-            android:layout_width="150dp"
+            android:spinnerMode="dialog"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -299,7 +333,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="top"
-            android:hint="enter value"
+            android:hint="내용을 적어주세요."
             android:background="@null"
             android:padding="12dp"
             android:layout_margin="5dp"/>
@@ -325,7 +359,7 @@
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginRight="130dp"
+            android:layout_marginRight="80dp"
             android:backgroundTint="#6666FF"
             android:gravity="center"
             android:onClick="mOnClose"

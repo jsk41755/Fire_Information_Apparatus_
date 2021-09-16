@@ -53,7 +53,7 @@
                         android:textStyle="bold"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:text="○ 발생장소 : 음식조리장소\n\n○ 해결방안 : 연기감지기를\n정온식 열감지기로 교체" />
 
                     <ImageView
@@ -95,7 +95,7 @@
                         android:textSize="18dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
                         android:text="○ 발생장소 : 흡연장소 인근\n\n○ 해결방안 : 설치장소 재배치 \n또는 열감지기로 변경" />
 
@@ -138,7 +138,7 @@
                         android:textSize="18dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
                         android:text="○ 발생장소 : 드레스룸\n(사워실 인근)\n\n○ 해결방안 : 연기감지기를\n정온식 열감지기로 교체"/>
 
@@ -181,9 +181,9 @@
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
-                        android:text="○ 발생장소 : 에어컨 인근\n\n○ 해결방안 : 외부 유입공기\n(에어컨 기류방향)에 영향을\n받는 장소인 경우 이격설치" />
+                        android:text="○ 발생장소 : 에어컨 인근\n\n○ 해결방안 : 외부 유입공기\n(에어컨 기류방향)에 영향을 받는 장소인 경우 이격설치" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -216,9 +216,9 @@
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
-                        android:text="○ 발생장소 : 가전제품\n(가습기 등)으로\n발생하는 증기 발생 장소\n\n○ 해결방안 : 증기를 설치된 광전식\n감지기를 향해 사용 자제" />
+                        android:text="○ 발생장소 : 가전제품\n(가습기 등)으로 발생하는 증기 발생 장소\n\n○ 해결방안 : 증기를 설치된 광전식 감지기를 향해 사용 자제" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -252,8 +252,8 @@
                         android:textStyle="bold"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:gravity="center"
-                        android:text="○ 발생장소 : 건설현장 및 청소\n작업 구역\n\n○ 해결방안 : 시공 중 먼지커버로\n연기감지기를 덮음(시공 후 커버제거)" />
+                        android:gravity="left"
+                        android:text="○ 발생장소 : 건설현장 및 청소\n작업 구역\n\n○ 해결방안 : 시공 중 먼지커버로 연기감지기를 덮음(시공 후 커버제거)" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -286,9 +286,9 @@
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
-                        android:text="○ 발생장소 : 발코니, 실외기실, 외부\n출입구 인근\n\n○ 해결방안 : 차동식연기감지기를\n정온식 열감지기로 교체" />
+                        android:text="○ 발생장소 : 발코니, 실외기실, 외부\n출입구 인근\n\n○ 해결방안 : 차동식연기감지기를 정온식 열감지기로 교체" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -320,9 +320,9 @@
                         android:textSize="15dp"
                         android:textStyle="bold"
                         android:padding="10dp"
-                        android:gravity="center"
+                        android:gravity="left"
                         android:textColor="@color/black"
-                        android:text="○ 발생장소 : 천장 누수 우려장소\n\n○ 해결방안 : 누수 우려장소는\n감지기 설치 인근에 방수처리,\n감지기를 방수형 감지기로 변경" />
+                        android:text="○ 발생장소 : 천장 누수 우려장소\n\n○ 해결방안 : 누수 우려장소는 감지기 설치 인근에 방수처리,감지기를 방수형 감지기로 변경" />
 
                     <ImageView
                         android:layout_width="150dp"
@@ -342,8 +342,8 @@
 
         <ImageButton
             android:id="@+id/before_page"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
@@ -355,7 +355,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:background="@drawable/borderline">
 
         <Button

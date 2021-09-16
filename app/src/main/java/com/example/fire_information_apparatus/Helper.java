@@ -8,6 +8,7 @@ public class Helper {
     String Object_Manager;
     String Manager_General_Telephone;
     String Manager_Cell_Phone;
+    String Declaration_Number_Phone;
 
 
     String Jurisdiction_Center;
@@ -17,7 +18,7 @@ public class Helper {
     public Helper() {
     }
 
-    public Helper(String Object_Name, String By_Place, String Old_Address, String New_Address, String Object_Manager, String Manager_General_Telephone, String Manager_Cell_Phone,String Num, String Jurisdiction_Center) {
+    public Helper(String Object_Name, String By_Place, String Old_Address, String New_Address, String Object_Manager, String Manager_General_Telephone, String Manager_Cell_Phone,String Num, String Jurisdiction_Center, String Declaration_Number_Phone) {
         this.Object_Name = Object_Name;
         this.By_Place = By_Place;
         this.Old_Address = Old_Address;
@@ -27,6 +28,7 @@ public class Helper {
         this.Manager_Cell_Phone = Manager_Cell_Phone;
         this.Jurisdiction_Center = Jurisdiction_Center;
         this.Num = Num;
+        this.Declaration_Number_Phone = Declaration_Number_Phone;
     }
 
     public String getObject_Name() {
@@ -100,5 +102,13 @@ public class Helper {
 
     public void setNum(String num) {
         Num = num;
+    }
+
+    public String getDeclaration_Number_Phone() {
+        return Declaration_Number_Phone;
+    }
+
+    public void setDeclaration_Number_Phone(String declaration_Number_Phone) {
+        Declaration_Number_Phone = declaration_Number_Phone;
     }
 }

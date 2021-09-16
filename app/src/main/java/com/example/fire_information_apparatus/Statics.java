@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +30,9 @@ public class Statics extends Activity {
     private TextView System_Factors_1, System_Factors_2, System_Factors_3, System_Factors_4;
     private TextView Etc_Factors_1, Factors_All;
 
-    private TextView Factory_Place, Dwelling_Place, Senior_Place, Etc_Place;
-    private Button finish_button, Artificial_Factors, Administrative_Factors, System_Factors, Etc_Factors, Place;
+    private Button finish_button, Artificial_Factors, Administrative_Factors, System_Factors, Etc_Factors;
+
+    private ImageButton next_page;
 
 
     private FirebaseDatabase database;
@@ -38,6 +41,7 @@ public class Statics extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_statics);
 
@@ -59,10 +63,7 @@ public class Statics extends Activity {
 
         Etc_Factors_1 = findViewById(R.id.Etc_Factors_1);
 
-        Factory_Place = findViewById(R.id.Factory_Place);
-        Dwelling_Place = findViewById(R.id.Dwelling_Place);
-        Senior_Place = findViewById(R.id.Senior_Place);
-        Etc_Place = findViewById(R.id.Etc_Place);
+        next_page = findViewById(R.id.next_page2);
 
         finish_button = findViewById(R.id.finish_button);
         Artificial_Factors = findViewById(R.id.Artificial_Factors);
@@ -70,7 +71,6 @@ public class Statics extends Activity {
         System_Factors = findViewById(R.id.System_Factors);
         Etc_Factors = findViewById(R.id.Etc_Factors);
 
-        Place = findViewById(R.id.Place);
         Factors_All = findViewById(R.id.Factors_All);
 
         final int[] Artificial_Factors_all = {0};
@@ -107,23 +107,6 @@ public class Statics extends Activity {
 
                 Factors_all[0] += (Artificial_Factors_all[0] + Administrative_Factors_all[0] + System_Factors_all[0] + Etc_Factors_all[0]);
                 Factors_All.setText("사례원인별 - " + Factors_all[0]);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        databaseReference_Place.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Place_all[0] += Integer.parseInt(String.valueOf(snapshot.child("Dwelling_Place").getValue()));
-                Place_all[0] += Integer.parseInt(String.valueOf(snapshot.child("Etc_Place").getValue()));
-                Place_all[0] += Integer.parseInt(String.valueOf(snapshot.child("Factory_Place").getValue()));
-                Place_all[0] += Integer.parseInt(String.valueOf(snapshot.child("Senior_Place").getValue()));
-
-                Place.setText("장소별 - " + Place_all[0]);
             }
 
             @Override
@@ -190,32 +173,13 @@ public class Statics extends Activity {
             }
         });
 
-        Place.setOnClickListener(new View.OnClickListener() {
+        next_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                Intent intent = new Intent(v.getContext(), StaticsGraph_Activity.class);
-                intent.putExtra("Factors","By_Place");
-                intent.putExtra("Num","4");
-                intent.putExtra("Statics","1");
-
+                Intent intent = new Intent(v.getContext(), Place_Static.class);
                 context.startActivity(intent);
-            }
-        });
-
-        databaseReference_Place.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Factory_Place.setText(String.valueOf(snapshot.child("Factory_Place").getValue()));
-                Dwelling_Place.setText(String.valueOf(snapshot.child("Dwelling_Place").getValue()));
-                Senior_Place.setText(String.valueOf(snapshot.child("Senior_Place").getValue()));
-                Etc_Place.setText(String.valueOf(snapshot.child("Etc_Place").getValue()));
-            }
-
-            @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
-
             }
         });
 
